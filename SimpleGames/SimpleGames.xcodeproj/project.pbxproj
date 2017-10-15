@@ -14,6 +14,8 @@
 		4951161F1F8FB4BF00429417 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4951161D1F8FB4BF00429417 /* LaunchScreen.storyboard */; };
 		496BA1C91F923A22002E6EB6 /* HitAirplanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496BA1C81F923A22002E6EB6 /* HitAirplanViewController.swift */; };
 		496BA1CB1F925A58002E6EB6 /* EnemyAirplan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496BA1CA1F925A58002E6EB6 /* EnemyAirplan.swift */; };
+		496BA1CD1F9313BF002E6EB6 /* MyAirplan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496BA1CC1F9313BF002E6EB6 /* MyAirplan.swift */; };
+		496BA1CF1F93195C002E6EB6 /* Shell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496BA1CE1F93195C002E6EB6 /* Shell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		495116201F8FB4BF00429417 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		496BA1C81F923A22002E6EB6 /* HitAirplanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HitAirplanViewController.swift; sourceTree = "<group>"; };
 		496BA1CA1F925A58002E6EB6 /* EnemyAirplan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyAirplan.swift; sourceTree = "<group>"; };
+		496BA1CC1F9313BF002E6EB6 /* MyAirplan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAirplan.swift; sourceTree = "<group>"; };
+		496BA1CE1F93195C002E6EB6 /* Shell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +78,8 @@
 			children = (
 				496BA1C81F923A22002E6EB6 /* HitAirplanViewController.swift */,
 				496BA1CA1F925A58002E6EB6 /* EnemyAirplan.swift */,
+				496BA1CC1F9313BF002E6EB6 /* MyAirplan.swift */,
+				496BA1CE1F93195C002E6EB6 /* Shell.swift */,
 			);
 			path = HitAriplan;
 			sourceTree = "<group>";
@@ -154,6 +160,8 @@
 				495116151F8FB4BF00429417 /* AppDelegate.swift in Sources */,
 				496BA1CB1F925A58002E6EB6 /* EnemyAirplan.swift in Sources */,
 				496BA1C91F923A22002E6EB6 /* HitAirplanViewController.swift in Sources */,
+				496BA1CD1F9313BF002E6EB6 /* MyAirplan.swift in Sources */,
+				496BA1CF1F93195C002E6EB6 /* Shell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

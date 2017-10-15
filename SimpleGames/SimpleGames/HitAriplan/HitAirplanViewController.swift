@@ -8,6 +8,10 @@
 
 import UIKit
 
+let airplanWidth : CGFloat = 40.0
+
+let airplanHeight = airplanWidth
+
 class HitAirplanViewController: UIViewController {
     
     fileprivate var timer : Timer?
@@ -15,8 +19,6 @@ class HitAirplanViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = UIColor.orange
-        
         configUI()
     }
     
@@ -38,6 +40,8 @@ class HitAirplanViewController: UIViewController {
             alertVC.dismiss(animated: true, completion: nil)
             
             self.initTimer()
+            
+//            self.backgroundImageAnimate()
         }
         
         let cancelAction = UIAlertAction(title: "取消", style: UIAlertActionStyle.default) { (_) in
@@ -50,21 +54,36 @@ class HitAirplanViewController: UIViewController {
         present(alertVC, animated: true, completion: nil)
     }
     
-    ///退出游戏按钮
+    ///添加子控件
     private func configUI(){
         let backBtn = UIButton(type: .custom)
-        backBtn.setTitle("退出", for: .normal)
-        backBtn.setTitleColor(UIColor.lightGray, for: .normal)
+        backBtn.setTitle("exit", for: .normal)
+        backBtn.setTitleColor(UIColor.black, for: .normal)
         backBtn.frame = CGRect(x: 20, y: 10, width: 0, height: 0)
         backBtn.sizeToFit()
         backBtn.addTarget(self, action: #selector(btnClick), for: .touchUpInside)
         view.addSubview(backBtn)
         
         view.addSubview(backgroundImageView)
+        
+        view.addSubview(myAirplan)
+//        myAirplan.maxAttck = 3
+        
+        view.addSubview(scoreLabel)
+        scoreLabel.frame.origin.x = view.frame.maxX - scoreLabel.frame.size.width - 20
+        scoreLabel.frame.origin.y = 20
     }
     
+    ///退出游戏按钮点击
     @objc private func btnClick(){
         dismiss(animated: true, completion: nil)
+    }
+    ///背景图片循环动画
+    private func backgroundImageAnimate(){
+        UIView.animate(withDuration: 2) {
+            UIView.setAnimationRepeatCount(MAXFLOAT)
+            self.backgroundImageView.frame.origin.y = 0
+        }
     }
 
     
@@ -72,7 +91,7 @@ class HitAirplanViewController: UIViewController {
     ///背景图片
     fileprivate lazy var backgroundImageView : UIImageView = {
         let imageV = UIImageView(image: UIImage(named:"map"))
-        imageV.frame = UIScreen.main.bounds
+        imageV.frame = CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT)
         return imageV
     }()
     ///积分label
@@ -80,17 +99,18 @@ class HitAirplanViewController: UIViewController {
        let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 15)
         label.textColor = UIColor.red
+        label.text = "00000"
+        label.sizeToFit()
         return label
     }()
     
     ///存放敌机数组
     private lazy var enemyPlanes = [EnemyAirplan]()
     
-    private lazy var myAirplan : UIButton = {
-       let btn = UIButton(type: .custom)
-        return btn
-    }()
+    ///存放炮弹数组
+    fileprivate lazy var shellsArray = [Shell]()
     
+    private lazy var myAirplan = MyAirplan(frame: CGRect(x: (SCREEN_WIDTH - airplanWidth) * 0.5, y: SCREEN_HEIGHT - airplanWidth - 20, width: airplanWidth, height: airplanHeight))
     
 }
 
@@ -107,15 +127,25 @@ extension HitAirplanViewController {
     static var i : Int = 0
     @objc private func startTimer(){
         
+        ///创建敌机
         if HitAirplanViewController.i%80 == 0{
-            let randowY = Int(arc4random_uniform(UInt32(Int((SCREEN_WIDTH - 40)))))
-            let enamyAirplan = EnemyAirplan(frame: CGRect(x: CGFloat(randowY), y: 0, width: 40, height: 40))
+            let randowY = Int(arc4random_uniform(UInt32(Int((SCREEN_WIDTH - airplanWidth)))))
+            let enamyAirplan = EnemyAirplan(frame: CGRect(x: CGFloat(randowY), y: 0, width: airplanWidth, height: airplanHeight))
             view.addSubview(enamyAirplan)
             enemyPlanes.append(enamyAirplan)
         }
         //敌机下落
         dropEnemyAirplan()
         
+        ///创建炮弹
+        if HitAirplanViewController.i%20 == 0 {
+            for shells in myAirplan.createShell(){
+                view.addSubview(shells)
+                shellsArray.append(shells)
+            }
+        }
+        ///发射炮弹
+        sendShell()
         
         
         HitAirplanViewController.i += 1
@@ -126,6 +156,14 @@ extension HitAirplanViewController {
         for enemy in enemyPlanes{
             enemy.dropDown()
         }
+    }
+    
+    ///发射炮弹
+    private func sendShell(){
+        for shells in shellsArray{
+            shells.fireShell()
+        }
+        
     }
     
 }
