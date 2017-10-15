@@ -21,7 +21,7 @@ class Shell: UIImageView {
     
     ///发射炮弹
     func fireShell(){
-        center = CGPoint(x: center.x + xMove, y: center.y - 2)
+        center = CGPoint(x: center.x + xMove, y: center.y - 5)
     }
     
     required init?(coder aDecoder: NSCoder) {

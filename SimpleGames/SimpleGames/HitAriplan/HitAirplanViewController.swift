@@ -32,6 +32,10 @@ class HitAirplanViewController: UIViewController {
         return true
     }
     
+    deinit {
+       print("销毁了")
+    }
+    
     //MARK: - 内部控制方法
     ///弹出提示框
     private func alertTips(){
@@ -56,15 +60,16 @@ class HitAirplanViewController: UIViewController {
     
     ///添加子控件
     private func configUI(){
+        
+        view.addSubview(backgroundImageView)
+        
         let backBtn = UIButton(type: .custom)
         backBtn.setTitle("exit", for: .normal)
-        backBtn.setTitleColor(UIColor.black, for: .normal)
+        backBtn.setTitleColor(UIColor.red, for: .normal)
         backBtn.frame = CGRect(x: 20, y: 10, width: 0, height: 0)
         backBtn.sizeToFit()
         backBtn.addTarget(self, action: #selector(btnClick), for: .touchUpInside)
         view.addSubview(backBtn)
-        
-        view.addSubview(backgroundImageView)
         
         view.addSubview(myAirplan)
 //        myAirplan.maxAttck = 3
@@ -76,6 +81,9 @@ class HitAirplanViewController: UIViewController {
     
     ///退出游戏按钮点击
     @objc private func btnClick(){
+        ///退出后将定时器 销毁
+        timer?.invalidate()
+        timer = nil
         dismiss(animated: true, completion: nil)
     }
     ///背景图片循环动画
@@ -120,9 +128,8 @@ extension HitAirplanViewController {
     
     ///开启定时器
     fileprivate func initTimer(){
-        timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(startTimer), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 0.08, target: self, selector: #selector(startTimer), userInfo: nil, repeats: true)
     }
-    
     
     static var i : Int = 0
     @objc private func startTimer(){
@@ -138,7 +145,7 @@ extension HitAirplanViewController {
         dropEnemyAirplan()
         
         ///创建炮弹
-        if HitAirplanViewController.i%20 == 0 {
+        if HitAirplanViewController.i%50 == 0 {
             for shells in myAirplan.createShell(){
                 view.addSubview(shells)
                 shellsArray.append(shells)
@@ -147,6 +154,14 @@ extension HitAirplanViewController {
         ///发射炮弹
         sendShell()
         
+        ///判断是否击中
+        
+        
+        print(">>>>>>>>>>>>")
+        print("敌机数量\(enemyPlanes.count)")
+        print("---------")
+        print("子弹数量\(shellsArray.count)")
+        print("<<<<<<<<<<<<")
         
         HitAirplanViewController.i += 1
     }
@@ -155,6 +170,11 @@ extension HitAirplanViewController {
     private func dropEnemyAirplan(){
         for enemy in enemyPlanes{
             enemy.dropDown()
+            ///如果超出了屏幕 从父控件移除还要从数组中移除
+            if view.frame.contains(enemy.frame) == false {
+                enemy.removeFromSuperview()
+                enemyPlanes.remove(at: enemyPlanes.index(of: enemy)!)
+            }
         }
     }
     
@@ -162,10 +182,13 @@ extension HitAirplanViewController {
     private func sendShell(){
         for shells in shellsArray{
             shells.fireShell()
+            ///如果超出了父控件需要移除
+            if view.frame.contains(shells.frame) == false {
+                shells.removeFromSuperview()
+                shellsArray.remove(at: shellsArray.index(of: shells)!)
+            }
         }
-        
     }
-    
 }
 
 
