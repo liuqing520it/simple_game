@@ -35,37 +35,11 @@ class HitAirplanViewController: UIViewController {
     override var prefersStatusBarHidden: Bool{
         return true
     }
-    
-    deinit {
-       print("销毁了")
-    }
-    
+
     //MARK: - 内部控制方法
-    ///弹出提示框
-    fileprivate func alertTips(_ title : String , _ doActionTitle : String , _ cancelActionTitle :   String , doCallBack:@escaping ()->()){
-        let alertVC = UIAlertController(title: title, message: "", preferredStyle: UIAlertControllerStyle.alert);
-        let beginAction = UIAlertAction(title: doActionTitle, style: UIAlertActionStyle.default) { (_) in
-            
-            alertVC.dismiss(animated: true, completion: nil)
-            
-            doCallBack()
-        }
-        
-        let cancelAction = UIAlertAction(title: cancelActionTitle, style: UIAlertActionStyle.default) { (_) in
-            alertVC.dismiss(animated: true, completion: nil)
-            self.dismiss(animated: true, completion: nil)
-        }
-        
-        alertVC.addAction(beginAction)
-        alertVC.addAction(cancelAction)
-        
-        present(alertVC, animated: true, completion: nil)
-    }
-    
     ///添加子控件
     private func configUI(){
-        
-        view.addSubview(backgroundImageView)
+        view.addSubview(backgroundScrollView)
         
         let backBtn = UIButton(type: .custom)
         backBtn.setTitle("exit", for: .normal)
@@ -76,8 +50,7 @@ class HitAirplanViewController: UIViewController {
         view.addSubview(backBtn)
         
         view.addSubview(myAirplan)
-        myAirplan.maxAttck = 2
-        
+        myAirplan.maxAttck = 4
         view.addSubview(scoreLabel)
         scoreLabel.frame.origin.x = view.frame.maxX - scoreLabel.frame.size.width - 20
         scoreLabel.frame.origin.y = 20
@@ -90,22 +63,10 @@ class HitAirplanViewController: UIViewController {
         timer = nil
         dismiss(animated: true, completion: nil)
     }
-    ///背景图片循环动画
-    private func backgroundImageAnimate(){
-        UIView.animate(withDuration: 2) {
-            UIView.setAnimationRepeatCount(MAXFLOAT)
-            self.backgroundImageView.frame.origin.y = 0
-        }
-    }
-
     
     ///MARK: - 懒加载
-    ///背景图片
-    fileprivate lazy var backgroundImageView : UIImageView = {
-        let imageV = UIImageView(image: UIImage(named:"map"))
-        imageV.frame = CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT)
-        return imageV
-    }()
+    fileprivate lazy var backgroundScrollView = BackgroundMapScrollView(frame: UIScreen.main.bounds)
+    
     ///积分label
     fileprivate lazy var scoreLabel : UILabel = {
        let label = UILabel()
@@ -116,33 +77,36 @@ class HitAirplanViewController: UIViewController {
         label.sizeToFit()
         return label
     }()
-    
     ///存放敌机数组
     private lazy var enemyAirplanes = [EnemyAirplan]()
-    
     ///存放炮弹数组
     fileprivate lazy var shellsArray = [Shell]()
-    
+    ///"用户飞机"
     private lazy var myAirplan = MyAirplan(frame: myAirplanFrame)
-    
 }
-
 
 //MARK: - 开启定时器后续操作
 extension HitAirplanViewController {
-    
     ///开启定时器
     fileprivate func initTimer(){
-        timer = Timer.scheduledTimer(timeInterval: 0.05, target: self, selector: #selector(startTimer), userInfo: nil, repeats: true)
-        RunLoop.current.add(timer!, forMode: .defaultRunLoopMode)
+        self.timer = Timer.scheduledTimer(timeInterval: 0.05, target: self, selector: #selector(self.startTimer), userInfo: nil, repeats: true)
+        RunLoop.current.add(self.timer!, forMode: .defaultRunLoopMode)
     }
     
     static var i : Int = 0
     @objc private func startTimer(){
+        
+        ///背景图片移动
+        UIView.animate(withDuration: 0.25) {
+            self.backgroundScrollView.contentOffset.y += 3
+        }
+        
+        
         ///创建敌机
         if HitAirplanViewController.i%100 == 0{
             let randowY = Int(arc4random_uniform(UInt32(Int((SCREEN_WIDTH - airplanWidth)))))
             let enamyAirplan = EnemyAirplan(frame: CGRect(x: CGFloat(randowY), y: 0, width: airplanWidth, height: airplanHeight))
+            
             view.insertSubview(enamyAirplan, belowSubview: scoreLabel)
             enemyAirplanes.append(enamyAirplan)
         }
@@ -150,9 +114,11 @@ extension HitAirplanViewController {
         dropEnemyAirplan()
         
         ///创建炮弹
-        if HitAirplanViewController.i%30 == 0 {
+        if HitAirplanViewController.i%50 == 0 {
             for shells in myAirplan.createShell(){
-                view.insertSubview(shells, belowSubview: scoreLabel)
+                DispatchQueue.main.async {
+                    self.view.insertSubview(shells, belowSubview: self.scoreLabel)
+                }
                 shellsArray.append(shells)
             }
         }
@@ -171,6 +137,12 @@ extension HitAirplanViewController {
 //        print("<<<<<<<<<<<<")
         
         HitAirplanViewController.i += 1
+        
+        ///无限循环 背景图片
+        if backgroundScrollView.contentOffset.y > SCREEN_HEIGHT{
+            backgroundScrollView.setContentOffset(CGPoint.zero, animated: false)
+        }
+        
     }
     
     //MARK: - 下落敌机
@@ -208,7 +180,7 @@ extension HitAirplanViewController {
         }
     }
     
-    //MARK: - 判断是否被击中
+    //MARK: - 判断是否被击中敌机
     static var score : Int = 0
     private func isHitEnemyAirplan(){
         ///遍历敌机数组
@@ -221,7 +193,7 @@ extension HitAirplanViewController {
                 if enemyAp.frame.contains(shellsOrigin){
                     removeEnemyAirplan(enemyAp)
                     removeShells(shells)
-                    ///没击中后计分
+                    ///击中后计分
                     HitAirplanViewController.score += 100
                     scoreLabel.text = String(format:"%05d",HitAirplanViewController.score)
                 }
@@ -278,7 +250,6 @@ extension HitAirplanViewController {
     //MARK: - 移除操作
     ///移除敌机
     private func removeEnemyAirplan(_ enemyAirPlan : EnemyAirplan){
-        
         guard let index = enemyAirplanes.index(of: enemyAirPlan) else {
             return
         }
@@ -298,10 +269,27 @@ extension HitAirplanViewController {
         ///从父控件中移除
         shells.removeFromSuperview()
     }
-    
 }
 
 
+//MARK: - 提示框封装
+extension HitAirplanViewController{
+    ///弹出提示框
+    fileprivate func alertTips(_ title : String , _ doActionTitle : String , _ cancelActionTitle :   String , doCallBack:@escaping ()->()){
+        let alertVC = UIAlertController(title: title, message: "", preferredStyle: UIAlertControllerStyle.alert);
+        let beginAction = UIAlertAction(title: doActionTitle, style: UIAlertActionStyle.default) { (_) in
+            alertVC.dismiss(animated: true, completion: nil)
+            doCallBack()
+        }
+        let cancelAction = UIAlertAction(title: cancelActionTitle, style: UIAlertActionStyle.default) { (_) in
+            alertVC.dismiss(animated: true, completion: nil)
+            self.dismiss(animated: true, completion: nil)
+        }
+        alertVC.addAction(beginAction)
+        alertVC.addAction(cancelAction)
+        present(alertVC, animated: true, completion: nil)
+    }
+}
 
 
 

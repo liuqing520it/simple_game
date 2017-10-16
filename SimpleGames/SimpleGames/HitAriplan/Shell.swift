@@ -19,7 +19,9 @@ class Shell: UIImageView {
     
     ///发射炮弹
     func fireShell(){
-        transform = transform.translatedBy(x: xMove, y: -5)
+        UIView.animate(withDuration: 0.25) {
+            self.transform = self.transform.translatedBy(x: self.xMove, y: -5)
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "enemyplane.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "enemyplane.png",
       "scale" : "2x"
     },
     {

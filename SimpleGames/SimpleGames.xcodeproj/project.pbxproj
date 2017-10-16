@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4937C03C1F94A6AF00C95EC6 /* BackgroundMapScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4937C03B1F94A6AF00C95EC6 /* BackgroundMapScrollView.swift */; };
 		495116151F8FB4BF00429417 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495116141F8FB4BF00429417 /* AppDelegate.swift */; };
 		495116171F8FB4BF00429417 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495116161F8FB4BF00429417 /* ViewController.swift */; };
 		4951161A1F8FB4BF00429417 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 495116181F8FB4BF00429417 /* Main.storyboard */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4937C03B1F94A6AF00C95EC6 /* BackgroundMapScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundMapScrollView.swift; sourceTree = "<group>"; };
 		495116111F8FB4BF00429417 /* SimpleGames.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleGames.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		495116141F8FB4BF00429417 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		495116161F8FB4BF00429417 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -77,6 +79,7 @@
 			isa = PBXGroup;
 			children = (
 				496BA1C81F923A22002E6EB6 /* HitAirplanViewController.swift */,
+				4937C03B1F94A6AF00C95EC6 /* BackgroundMapScrollView.swift */,
 				496BA1CA1F925A58002E6EB6 /* EnemyAirplan.swift */,
 				496BA1CC1F9313BF002E6EB6 /* MyAirplan.swift */,
 				496BA1CE1F93195C002E6EB6 /* Shell.swift */,
@@ -157,6 +160,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				495116171F8FB4BF00429417 /* ViewController.swift in Sources */,
+				4937C03C1F94A6AF00C95EC6 /* BackgroundMapScrollView.swift in Sources */,
 				495116151F8FB4BF00429417 /* AppDelegate.swift in Sources */,
 				496BA1CB1F925A58002E6EB6 /* EnemyAirplan.swift in Sources */,
 				496BA1C91F923A22002E6EB6 /* HitAirplanViewController.swift in Sources */,
@@ -299,6 +303,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = NBL9PB7UR2;
 				INFOPLIST_FILE = SimpleGames/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -314,6 +319,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = NBL9PB7UR2;
 				INFOPLIST_FILE = SimpleGames/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

@@ -24,19 +24,14 @@ class MyAirplan: UIImageView {
     //MARK: - 外部控制方法
     //创建炮弹
     func createShell() -> [Shell]{
-        
         if maxAttck > 5 {
             return [Shell]()
         }
-        
         var shellsArray = [Shell]()
-        
         let xMoveArray = [[0],[-1,1],[-1,0,1],[-2,-1,0,1,2]]
-        
         for attck in 0..<maxAttck{
             shellsArray.append(singleShellCreate(CGFloat(xMoveArray[maxAttck-1][attck])))
         }
-
         if maxAttck == 4 {
             shellsArray.append(singleShellCreate(CGFloat(xMoveArray[maxAttck-1][maxAttck])))
         }
@@ -50,17 +45,14 @@ class MyAirplan: UIImageView {
         return singleShell
     }
     
-    
     //MARK: - 内部控制
     //拖动
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-
         let touch = (touches as NSSet).allObjects.last
         // 获取当前点
         let curP = (touch as! UITouch).location(in: self)
         // 获取上一个点
         let preP = (touch as! UITouch).previousLocation(in: self)
-        
         transform = self.transform.translatedBy(x: curP.x - preP.x, y: curP.y - preP.y)
     }
     

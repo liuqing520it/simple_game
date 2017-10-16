@@ -12,16 +12,15 @@ class EnemyAirplan: UIImageView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         image = UIImage(named:"enemyplane")
-        
         sizeToFit()
     }
     
     func dropDown(){
-        transform = transform.translatedBy(x: 0, y: 2)
+        UIView.animate(withDuration: 0.25) {
+            self.transform = self.transform.translatedBy(x: 0, y: 2)
+        }
     }
-    
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
