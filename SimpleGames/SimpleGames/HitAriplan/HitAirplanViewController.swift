@@ -105,15 +105,16 @@ class HitAirplanViewController: UIViewController {
     ///积分label
     fileprivate lazy var scoreLabel : UILabel = {
        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 15)
+        label.font = UIFont.boldSystemFont(ofSize: 15)
         label.textColor = UIColor.red
         label.text = "00000"
+        label.textAlignment = .right
         label.sizeToFit()
         return label
     }()
     
     ///存放敌机数组
-    private lazy var enemyPlanes = [EnemyAirplan]()
+    private lazy var enemyAirplanes = [EnemyAirplan]()
     
     ///存放炮弹数组
     fileprivate lazy var shellsArray = [Shell]()
@@ -129,17 +130,17 @@ extension HitAirplanViewController {
     ///开启定时器
     fileprivate func initTimer(){
         timer = Timer.scheduledTimer(timeInterval: 0.08, target: self, selector: #selector(startTimer), userInfo: nil, repeats: true)
+        RunLoop.current.add(timer!, forMode: .defaultRunLoopMode)
     }
     
     static var i : Int = 0
     @objc private func startTimer(){
-        
         ///创建敌机
         if HitAirplanViewController.i%80 == 0{
             let randowY = Int(arc4random_uniform(UInt32(Int((SCREEN_WIDTH - airplanWidth)))))
             let enamyAirplan = EnemyAirplan(frame: CGRect(x: CGFloat(randowY), y: 0, width: airplanWidth, height: airplanHeight))
-            view.addSubview(enamyAirplan)
-            enemyPlanes.append(enamyAirplan)
+            view.insertSubview(enamyAirplan, belowSubview: scoreLabel)
+            enemyAirplanes.append(enamyAirplan)
         }
         //敌机下落
         dropEnemyAirplan()
@@ -147,7 +148,7 @@ extension HitAirplanViewController {
         ///创建炮弹
         if HitAirplanViewController.i%50 == 0 {
             for shells in myAirplan.createShell(){
-                view.addSubview(shells)
+                view.insertSubview(shells, belowSubview: scoreLabel)
                 shellsArray.append(shells)
             }
         }
@@ -155,40 +156,77 @@ extension HitAirplanViewController {
         sendShell()
         
         ///判断是否击中
+        isHitEnemyAirplan()
         
-        
-        print(">>>>>>>>>>>>")
-        print("敌机数量\(enemyPlanes.count)")
-        print("---------")
-        print("子弹数量\(shellsArray.count)")
-        print("<<<<<<<<<<<<")
+//        print(">>>>>>>>>>>>")
+//        print("敌机数量\(enemyAirplanes.count)")
+//        print("---------")
+//        print("子弹数量\(shellsArray.count)")
+//        print("<<<<<<<<<<<<")
         
         HitAirplanViewController.i += 1
     }
     
-    ///下落敌机
+    //MARK: - 下落敌机
     private func dropEnemyAirplan(){
-        for enemy in enemyPlanes{
+        for enemy in enemyAirplanes{
             enemy.dropDown()
             ///如果超出了屏幕 从父控件移除还要从数组中移除
             if view.frame.contains(enemy.frame) == false {
-                enemy.removeFromSuperview()
-                enemyPlanes.remove(at: enemyPlanes.index(of: enemy)!)
+               removeEnemyAirplan(enemy)
             }
         }
     }
     
-    ///发射炮弹
+    //MARK: - 发射炮弹
     private func sendShell(){
         for shells in shellsArray{
             shells.fireShell()
             ///如果超出了父控件需要移除
             if view.frame.contains(shells.frame) == false {
-                shells.removeFromSuperview()
-                shellsArray.remove(at: shellsArray.index(of: shells)!)
+                removeShells(shells)
             }
         }
     }
+    
+    //MARK: - 判断是否被击中
+    static var score : Int = 0
+    private func isHitEnemyAirplan(){
+        ///遍历敌机数组
+        for enemyAp in enemyAirplanes{
+            ///遍历炮弹数组
+            for shells in shellsArray{
+                ///取出炮弹顶部的中心点
+                let shellsOrigin = CGPoint(x: shells.frame.origin.x + shells.frame.width * 0.5, y: shells.frame.origin.y)
+                ///如果敌机的frame包含炮弹的顶部中心点则需要移除
+                if enemyAp.frame.contains(shellsOrigin){
+                    removeEnemyAirplan(enemyAp)
+                    removeShells(shells)
+                    ///没击中后计分
+                    HitAirplanViewController.score += 100
+                    scoreLabel.text = String(format:"%05d",HitAirplanViewController.score)
+                }
+            }
+        }
+    }
+    
+    //MARK: - 移除操作
+    ///移除敌机
+    private func removeEnemyAirplan(_ enemyAirPlan : EnemyAirplan){
+        ///从父控件中移除
+        enemyAirPlan.removeFromSuperview()
+        ///从敌机数组中移除
+        enemyAirplanes.remove(at: enemyAirplanes.index(of: enemyAirPlan)!)
+    }
+    
+    ///移除子弹
+    private func removeShells(_ shells : Shell){
+        ///从父控件中移除
+        shells.removeFromSuperview()
+        ///从炮弹数组中移除
+        shellsArray.remove(at: shellsArray.index(of: shells)!)
+    }
+    
 }
 
 
