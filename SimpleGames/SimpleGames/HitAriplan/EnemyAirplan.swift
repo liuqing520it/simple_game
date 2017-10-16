@@ -20,7 +20,7 @@ class EnemyAirplan: UIImageView {
     
     
     func dropDown(){
-        center = CGPoint(x: center.x, y: center.y + 2)
+        transform = transform.translatedBy(x: 0, y: 2)
     }
     
     

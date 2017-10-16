@@ -16,15 +16,19 @@ class HitAirplanViewController: UIViewController {
     
     fileprivate var timer : Timer?
     
+    fileprivate var myAirplanFrame = CGRect(x: (SCREEN_WIDTH - airplanWidth) * 0.5, y: SCREEN_HEIGHT - airplanWidth - 20, width: airplanWidth, height: airplanHeight)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         configUI()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-         alertTips()
+        alertTips("开始游戏?", "开始", "退出") {
+            self.initTimer()
+        }
     }
     
     //隐藏状态栏
@@ -38,18 +42,18 @@ class HitAirplanViewController: UIViewController {
     
     //MARK: - 内部控制方法
     ///弹出提示框
-    private func alertTips(){
-        let alertVC = UIAlertController(title: "开始游戏", message: "", preferredStyle: UIAlertControllerStyle.alert);
-        let beginAction = UIAlertAction(title: "开始", style: UIAlertActionStyle.default) { (_) in
+    fileprivate func alertTips(_ title : String , _ doActionTitle : String , _ cancelActionTitle :   String , doCallBack:@escaping ()->()){
+        let alertVC = UIAlertController(title: title, message: "", preferredStyle: UIAlertControllerStyle.alert);
+        let beginAction = UIAlertAction(title: doActionTitle, style: UIAlertActionStyle.default) { (_) in
+            
             alertVC.dismiss(animated: true, completion: nil)
             
-            self.initTimer()
-            
-//            self.backgroundImageAnimate()
+            doCallBack()
         }
         
-        let cancelAction = UIAlertAction(title: "取消", style: UIAlertActionStyle.default) { (_) in
+        let cancelAction = UIAlertAction(title: cancelActionTitle, style: UIAlertActionStyle.default) { (_) in
             alertVC.dismiss(animated: true, completion: nil)
+            self.dismiss(animated: true, completion: nil)
         }
         
         alertVC.addAction(beginAction)
@@ -72,7 +76,7 @@ class HitAirplanViewController: UIViewController {
         view.addSubview(backBtn)
         
         view.addSubview(myAirplan)
-//        myAirplan.maxAttck = 3
+        myAirplan.maxAttck = 4
         
         view.addSubview(scoreLabel)
         scoreLabel.frame.origin.x = view.frame.maxX - scoreLabel.frame.size.width - 20
@@ -119,7 +123,7 @@ class HitAirplanViewController: UIViewController {
     ///存放炮弹数组
     fileprivate lazy var shellsArray = [Shell]()
     
-    private lazy var myAirplan = MyAirplan(frame: CGRect(x: (SCREEN_WIDTH - airplanWidth) * 0.5, y: SCREEN_HEIGHT - airplanWidth - 20, width: airplanWidth, height: airplanHeight))
+    private lazy var myAirplan = MyAirplan(frame: myAirplanFrame)
     
 }
 
@@ -129,14 +133,14 @@ extension HitAirplanViewController {
     
     ///开启定时器
     fileprivate func initTimer(){
-        timer = Timer.scheduledTimer(timeInterval: 0.08, target: self, selector: #selector(startTimer), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 0.05, target: self, selector: #selector(startTimer), userInfo: nil, repeats: true)
         RunLoop.current.add(timer!, forMode: .defaultRunLoopMode)
     }
     
     static var i : Int = 0
     @objc private func startTimer(){
         ///创建敌机
-        if HitAirplanViewController.i%80 == 0{
+        if HitAirplanViewController.i%100 == 0{
             let randowY = Int(arc4random_uniform(UInt32(Int((SCREEN_WIDTH - airplanWidth)))))
             let enamyAirplan = EnemyAirplan(frame: CGRect(x: CGFloat(randowY), y: 0, width: airplanWidth, height: airplanHeight))
             view.insertSubview(enamyAirplan, belowSubview: scoreLabel)
@@ -146,7 +150,7 @@ extension HitAirplanViewController {
         dropEnemyAirplan()
         
         ///创建炮弹
-        if HitAirplanViewController.i%50 == 0 {
+        if HitAirplanViewController.i%30 == 0 {
             for shells in myAirplan.createShell(){
                 view.insertSubview(shells, belowSubview: scoreLabel)
                 shellsArray.append(shells)
@@ -158,6 +162,8 @@ extension HitAirplanViewController {
         ///判断是否击中
         isHitEnemyAirplan()
         
+        ///判断是否游戏结束
+        isGameover()
 //        print(">>>>>>>>>>>>")
 //        print("敌机数量\(enemyAirplanes.count)")
 //        print("---------")
@@ -207,6 +213,52 @@ extension HitAirplanViewController {
                     scoreLabel.text = String(format:"%05d",HitAirplanViewController.score)
                 }
             }
+        }
+    }
+    
+    //MARK: - 判断是否被敌机撞毁
+    private func isGameover(){
+        ///计算"我机"各个边的中心点
+        let myAirplanTopCenter = CGPoint(x: myAirplan.frame.origin.x + myAirplan.frame.width * 0.5, y: myAirplan.frame.origin.y)
+        let myAirplanBottomCenter = CGPoint(x: myAirplan.frame.maxX - myAirplan.frame.width * 0.5, y: myAirplan.frame.maxY)
+        let myAirplanLeftCenter = CGPoint(x: myAirplan.frame.origin.x, y: myAirplan.frame.origin.y + myAirplan.frame.size.height * 0.5)
+        let myAirplanRightCenter = CGPoint(x: myAirplan.frame.origin.x +  myAirplan.frame.size.width, y: myAirplan.frame.origin.y + myAirplan.frame.size.height * 0.5)
+        
+        for enemyAP in enemyAirplanes{
+            //如果我机 撞毁 则弹窗提示
+            if  enemyAP.frame.contains(myAirplanTopCenter) ||
+                enemyAP.frame.contains(myAirplanBottomCenter) ||
+                enemyAP.frame.contains(myAirplanLeftCenter) ||
+                enemyAP.frame.contains(myAirplanRightCenter) {
+                ///1.停止定时器
+                timer?.invalidate()
+                timer = nil
+                ///2.弹窗提示
+                alertTips("游戏结束!", "重新开始", "退出游戏", doCallBack: {
+                    //重新开始
+                    self.resetGame()
+                })
+            }
+        }
+    }
+    
+    //MARK: - 重新开始 清除一些操作
+    private func resetGame(){
+        ///清空分数
+        scoreLabel.text = "00000"
+        ///清除敌机
+        for enemyAP in enemyAirplanes{
+            removeEnemyAirplan(enemyAP)
+        }
+        ///清除炮弹
+        for shells in shellsArray{
+            removeShells(shells)
+        }
+        ///初始化timer重新开始
+        initTimer()
+        //将我机 移到最初位置
+        UIView.animate(withDuration: 0.25) {
+            self.myAirplan.frame = self.myAirplanFrame
         }
     }
     
