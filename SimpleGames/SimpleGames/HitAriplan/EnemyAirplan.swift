@@ -18,7 +18,6 @@ class EnemyAirplan: UIImageView {
         sizeToFit()
     }
     
-    
     func dropDown(){
         transform = transform.translatedBy(x: 0, y: 2)
     }

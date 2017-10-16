@@ -76,7 +76,7 @@ class HitAirplanViewController: UIViewController {
         view.addSubview(backBtn)
         
         view.addSubview(myAirplan)
-        myAirplan.maxAttck = 4
+        myAirplan.maxAttck = 2
         
         view.addSubview(scoreLabel)
         scoreLabel.frame.origin.x = view.frame.maxX - scoreLabel.frame.size.width - 20
@@ -178,7 +178,9 @@ extension HitAirplanViewController {
         for enemy in enemyAirplanes{
             enemy.dropDown()
             ///如果超出了屏幕 从父控件移除还要从数组中移除
-            if view.frame.contains(enemy.frame) == false {
+            ///敌机顶部任一点 超出屏幕
+            let topPoint = CGPoint(x: enemy.frame.origin.x, y: enemy.frame.origin.y)
+            if view.frame.contains(topPoint) == false {
                removeEnemyAirplan(enemy)
             }
         }
@@ -189,8 +191,19 @@ extension HitAirplanViewController {
         for shells in shellsArray{
             shells.fireShell()
             ///如果超出了父控件需要移除
-            if view.frame.contains(shells.frame) == false {
-                removeShells(shells)
+            if shells.frame.maxX < myAirplan.center.x{//在"我机"左边的子弹
+                ///底部右下角超出屏幕
+                let bottomRightPoint = CGPoint(x: shells.frame.maxX, y: shells.frame.maxY)
+                if view.frame.contains(bottomRightPoint) == false {
+                    removeShells(shells)
+                }
+            }
+            else{//在"我机"右边的子弹
+                ///底部左下角超出屏幕
+                let bottomLeftPoint = CGPoint(x: shells.frame.maxX - shells.frame.width, y: shells.frame.maxY)
+                if view.frame.contains(bottomLeftPoint) == false {
+                    removeShells(shells)
+                }
             }
         }
     }
@@ -265,18 +278,25 @@ extension HitAirplanViewController {
     //MARK: - 移除操作
     ///移除敌机
     private func removeEnemyAirplan(_ enemyAirPlan : EnemyAirplan){
+        
+        guard let index = enemyAirplanes.index(of: enemyAirPlan) else {
+            return
+        }
+        ///从敌机数组中移除
+        enemyAirplanes.remove(at: index)
         ///从父控件中移除
         enemyAirPlan.removeFromSuperview()
-        ///从敌机数组中移除
-        enemyAirplanes.remove(at: enemyAirplanes.index(of: enemyAirPlan)!)
     }
     
     ///移除子弹
     private func removeShells(_ shells : Shell){
+        guard let index = shellsArray.index(of: shells) else {
+            return
+        }
+        ///从炮弹数组中移除
+        shellsArray.remove(at: index)
         ///从父控件中移除
         shells.removeFromSuperview()
-        ///从炮弹数组中移除
-        shellsArray.remove(at: shellsArray.index(of: shells)!)
     }
     
 }

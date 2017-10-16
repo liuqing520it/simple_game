@@ -14,15 +14,12 @@ class Shell: UIImageView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         image = UIImage(named:"shell")
-        
     }
     
     ///发射炮弹
     func fireShell(){
         transform = transform.translatedBy(x: xMove, y: -5)
-//        center = CGPoint(x: center.x + xMove, y: center.y - 5)
     }
     
     required init?(coder aDecoder: NSCoder) {
