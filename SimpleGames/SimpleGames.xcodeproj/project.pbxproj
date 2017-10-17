@@ -17,6 +17,7 @@
 		496BA1CB1F925A58002E6EB6 /* EnemyAirplan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496BA1CA1F925A58002E6EB6 /* EnemyAirplan.swift */; };
 		496BA1CD1F9313BF002E6EB6 /* MyAirplan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496BA1CC1F9313BF002E6EB6 /* MyAirplan.swift */; };
 		496BA1CF1F93195C002E6EB6 /* Shell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496BA1CE1F93195C002E6EB6 /* Shell.swift */; };
+		49E6F9E31F95B5F000CE7005 /* ExplodeImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E6F9E21F95B5F000CE7005 /* ExplodeImageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		496BA1CA1F925A58002E6EB6 /* EnemyAirplan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyAirplan.swift; sourceTree = "<group>"; };
 		496BA1CC1F9313BF002E6EB6 /* MyAirplan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAirplan.swift; sourceTree = "<group>"; };
 		496BA1CE1F93195C002E6EB6 /* Shell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shell.swift; sourceTree = "<group>"; };
+		49E6F9E21F95B5F000CE7005 /* ExplodeImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplodeImageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +81,7 @@
 			isa = PBXGroup;
 			children = (
 				496BA1C81F923A22002E6EB6 /* HitAirplanViewController.swift */,
+				49E6F9E21F95B5F000CE7005 /* ExplodeImageView.swift */,
 				4937C03B1F94A6AF00C95EC6 /* BackgroundMapScrollView.swift */,
 				496BA1CA1F925A58002E6EB6 /* EnemyAirplan.swift */,
 				496BA1CC1F9313BF002E6EB6 /* MyAirplan.swift */,
@@ -159,6 +162,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49E6F9E31F95B5F000CE7005 /* ExplodeImageView.swift in Sources */,
 				495116171F8FB4BF00429417 /* ViewController.swift in Sources */,
 				4937C03C1F94A6AF00C95EC6 /* BackgroundMapScrollView.swift in Sources */,
 				495116151F8FB4BF00429417 /* AppDelegate.swift in Sources */,

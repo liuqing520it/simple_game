@@ -65,8 +65,8 @@ class HitAirplanViewController: UIViewController {
     }
     
     ///MARK: - 懒加载
+    ///背景图片
     fileprivate lazy var backgroundScrollView = BackgroundMapScrollView(frame: UIScreen.main.bounds)
-    
     ///积分label
     fileprivate lazy var scoreLabel : UILabel = {
        let label = UILabel()
@@ -77,10 +77,12 @@ class HitAirplanViewController: UIViewController {
         label.sizeToFit()
         return label
     }()
-    ///存放敌机数组
+    ///存放敌机的数组
     private lazy var enemyAirplanes = [EnemyAirplan]()
-    ///存放炮弹数组
-    fileprivate lazy var shellsArray = [Shell]()
+    ///存放击中爆炸的数组
+    private lazy var explodeAnimationViews = [ExplodeImageView]()
+    ///存放炮弹的数组
+    private lazy var shellsArray = [Shell]()
     ///"用户飞机"
     private lazy var myAirplan = MyAirplan(frame: myAirplanFrame)
 }
@@ -101,9 +103,8 @@ extension HitAirplanViewController {
             self.backgroundScrollView.contentOffset.y += 3
         }
         
-        
         ///创建敌机
-        if HitAirplanViewController.i%100 == 0{
+        if HitAirplanViewController.i%80 == 0{
             let randowY = Int(arc4random_uniform(UInt32(Int((SCREEN_WIDTH - airplanWidth)))))
             let enamyAirplan = EnemyAirplan(frame: CGRect(x: CGFloat(randowY), y: 0, width: airplanWidth, height: airplanHeight))
             
@@ -193,10 +194,44 @@ extension HitAirplanViewController {
                 if enemyAp.frame.contains(shellsOrigin){
                     removeEnemyAirplan(enemyAp)
                     removeShells(shells)
+                    //展示击中动画
+                    explodeAnimation(enemyAp.frame)
                     ///击中后计分
                     HitAirplanViewController.score += 100
                     scoreLabel.text = String(format:"%05d",HitAirplanViewController.score)
                 }
+            }
+        }
+    }
+    
+    //MARK: - 击中爆炸动图
+    private func explodeAnimation(_ frame : CGRect){
+        //创建爆炸动图
+        let explodeIV = ExplodeImageView(frame: frame)
+        view.addSubview(explodeIV)
+        if explodeIV.isAnimating == false{
+            //开始动画
+            explodeIV.startAnimating()
+            //添加到数组中
+            explodeAnimationViews.append(explodeIV)
+        }
+        
+        ///这里不知道动画什么时候执行完毕 所以添加到数组里 遍历判断 isAnimating为fasle的时候清除爆炸动画图片
+        deleteExplodeAnimationViews()
+    }
+    
+    //删除爆炸动图
+    private func deleteExplodeAnimationViews(){
+        for animationView in explodeAnimationViews {
+            //如果动画执行完成
+            if animationView.isAnimating == false{
+                guard let index = explodeAnimationViews.index(of: animationView) else {
+                    break
+                }
+                //从数组中删除
+                explodeAnimationViews.remove(at: index)
+                //从父控件中删除
+                animationView.removeFromSuperview()
             }
         }
     }
