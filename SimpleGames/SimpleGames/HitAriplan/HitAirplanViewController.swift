@@ -70,7 +70,7 @@ class HitAirplanViewController: UIViewController {
     ///积分label
     fileprivate lazy var scoreLabel : UILabel = {
        let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 15)
+        label.font = UIFont.boldSystemFont(ofSize: 20)
         label.textColor = UIColor.red
         label.text = "00000"
         label.textAlignment = .right
