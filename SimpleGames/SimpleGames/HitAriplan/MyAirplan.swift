@@ -15,7 +15,6 @@ class MyAirplan: UIImageView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = UIColor.red
         ///设置图片
         image = UIImage(named:"airplan")
         ///打开用户交互
