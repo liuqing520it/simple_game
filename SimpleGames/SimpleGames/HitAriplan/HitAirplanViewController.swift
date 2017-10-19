@@ -40,6 +40,7 @@ class HitAirplanViewController: UIViewController {
     ///添加子控件
     private func configUI(){
         view.addSubview(backgroundScrollView)
+        backgroundScrollView.contentOffset.y = SCREEN_HEIGHT
         
         let backBtn = UIButton(type: .custom)
         backBtn.setTitle("exit", for: .normal)
@@ -100,7 +101,7 @@ extension HitAirplanViewController {
         
         ///背景图片移动
         UIView.animate(withDuration: 0.25) {
-            self.backgroundScrollView.contentOffset.y += 3
+            self.backgroundScrollView.contentOffset.y -= 3
         }
         
         ///创建敌机
@@ -140,8 +141,8 @@ extension HitAirplanViewController {
         HitAirplanViewController.i += 1
         
         ///无限循环 背景图片
-        if backgroundScrollView.contentOffset.y > SCREEN_HEIGHT{
-            backgroundScrollView.setContentOffset(CGPoint.zero, animated: false)
+        if backgroundScrollView.contentOffset.y < 0 {
+            backgroundScrollView.setContentOffset(CGPoint.init(x: 0, y: SCREEN_HEIGHT), animated: false)
         }
         
     }
@@ -189,7 +190,7 @@ extension HitAirplanViewController {
             ///遍历炮弹数组
             for shells in shellsArray{
                 ///取出炮弹顶部的中心点
-                let shellsOrigin = CGPoint(x: shells.frame.origin.x + shells.frame.width * 0.5, y: shells.frame.origin.y)
+                let shellsOrigin = CGPoint(x: shells.frame.origin.x + shells.frame.width * 0.5, y: shells.frame.origin.y + 8)
                 ///如果敌机的frame包含炮弹的顶部中心点则需要移除
                 if enemyAp.frame.contains(shellsOrigin){
                     removeEnemyAirplan(enemyAp)
