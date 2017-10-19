@@ -3,7 +3,7 @@ some simple game
 
 # 游戏一 :打飞机小游戏
 #效果图
-![image](https://github.com/liuqing520it/simple_game/raw/master/demo.gif)
+![image](https://github.com/liuqing520it/simple_game/raw/master/hitAirplan.gif)
 
 ## 后续待完善点
 1. 设置关卡 当分数达到一定值,增强攻击等级
