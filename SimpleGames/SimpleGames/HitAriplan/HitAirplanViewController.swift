@@ -13,10 +13,17 @@ let airplanWidth : CGFloat = 40.0
 let airplanHeight = airplanWidth
 
 class HitAirplanViewController: UIViewController {
+    ///定时器
+    private var timer : Timer?
+    ///'我机'的frame
+    private var myAirplanFrame = CGRect(x: (SCREEN_WIDTH - airplanWidth) * 0.5, y: SCREEN_HEIGHT - airplanWidth - 20, width: airplanWidth, height: airplanHeight)
     
-    fileprivate var timer : Timer?
-    
-    fileprivate var myAirplanFrame = CGRect(x: (SCREEN_WIDTH - airplanWidth) * 0.5, y: SCREEN_HEIGHT - airplanWidth - 20, width: airplanWidth, height: airplanHeight)
+    ///控制下落速度
+    private var dropSpeed : Int = 200
+    ///控制移动速度
+    private var gameSpeed : Int = 1
+    ///控制timer duration 速度
+    private var durationSpeed : TimeInterval = 0.1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,7 +58,6 @@ class HitAirplanViewController: UIViewController {
         view.addSubview(backBtn)
         
         view.addSubview(myAirplan)
-        myAirplan.maxAttck = 4
         view.addSubview(scoreLabel)
         scoreLabel.frame.origin.x = view.frame.maxX - scoreLabel.frame.size.width - 20
         scoreLabel.frame.origin.y = 20
@@ -72,8 +78,8 @@ class HitAirplanViewController: UIViewController {
     fileprivate lazy var scoreLabel : UILabel = {
        let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 20)
-        label.textColor = UIColor.red
-        label.text = "00000"
+        label.textColor = UIColor.white
+        label.text = "000000"
         label.textAlignment = .right
         label.sizeToFit()
         return label
@@ -92,7 +98,7 @@ class HitAirplanViewController: UIViewController {
 extension HitAirplanViewController {
     ///开启定时器
     fileprivate func initTimer(){
-        self.timer = Timer.scheduledTimer(timeInterval: 0.05, target: self, selector: #selector(self.startTimer), userInfo: nil, repeats: true)
+        self.timer = Timer.scheduledTimer(timeInterval: durationSpeed, target: self, selector: #selector(self.startTimer), userInfo: nil, repeats: true)
         RunLoop.current.add(self.timer!, forMode: .defaultRunLoopMode)
     }
     
@@ -101,14 +107,14 @@ extension HitAirplanViewController {
         
         ///背景图片移动
         UIView.animate(withDuration: 0.25) {
-            self.backgroundScrollView.contentOffset.y -= 3
+            self.backgroundScrollView.contentOffset.y -= CGFloat(self.gameSpeed)
         }
         
         ///创建敌机
-        if HitAirplanViewController.i%80 == 0{
+        //%的值越小 敌机越多
+        if HitAirplanViewController.i%dropSpeed == 0{
             let randowY = Int(arc4random_uniform(UInt32(Int((SCREEN_WIDTH - airplanWidth)))))
-            let enamyAirplan = EnemyAirplan(frame: CGRect(x: CGFloat(randowY), y: 0, width: airplanWidth, height: airplanHeight))
-            
+            let enamyAirplan = EnemyAirplan(frame: CGRect(x: CGFloat(randowY), y: 0, width: airplanWidth * 2, height: airplanHeight * 2))
             view.insertSubview(enamyAirplan, belowSubview: scoreLabel)
             enemyAirplanes.append(enamyAirplan)
         }
@@ -116,11 +122,10 @@ extension HitAirplanViewController {
         dropEnemyAirplan()
         
         ///创建炮弹
-        if HitAirplanViewController.i%50 == 0 {
+        //%的值越小 炮弹越多
+        if HitAirplanViewController.i%dropSpeed == 0 {
             for shells in myAirplan.createShell(){
-                DispatchQueue.main.async {
-                    self.view.insertSubview(shells, belowSubview: self.scoreLabel)
-                }
+                view.insertSubview(shells, belowSubview: self.scoreLabel)
                 shellsArray.append(shells)
             }
         }
@@ -138,7 +143,8 @@ extension HitAirplanViewController {
 //        print("子弹数量\(shellsArray.count)")
 //        print("<<<<<<<<<<<<")
         
-        HitAirplanViewController.i += 1
+        //加得越多 走的越快
+        HitAirplanViewController.i += gameSpeed
         
         ///无限循环 背景图片
         if backgroundScrollView.contentOffset.y < 0 {
@@ -199,9 +205,24 @@ extension HitAirplanViewController {
                     explodeAnimation(enemyAp.frame)
                     ///击中后计分
                     HitAirplanViewController.score += 100
-                    scoreLabel.text = String(format:"%05d",HitAirplanViewController.score)
+                    scoreLabel.text = String(format:"%06d",HitAirplanViewController.score)
+                    exchangeGameLevel()
                 }
             }
+        }
+    }
+    
+    //MARK: - 根据分数 增加游戏难度
+    private func exchangeGameLevel(){
+        let currentScore = HitAirplanViewController.score
+        if currentScore == 1000 {
+            dropSpeed -= 50
+        }
+        else if currentScore == 5000{
+            dropSpeed -= 100
+        }
+        else if currentScore == 10000{
+            dropSpeed -= 200
         }
     }
     
@@ -216,7 +237,6 @@ extension HitAirplanViewController {
             //添加到数组中
             explodeAnimationViews.append(explodeIV)
         }
-        
         ///这里不知道动画什么时候执行完毕 所以添加到数组里 遍历判断 isAnimating为fasle的时候清除爆炸动画图片
         deleteExplodeAnimationViews()
     }
@@ -266,7 +286,8 @@ extension HitAirplanViewController {
     //MARK: - 重新开始 清除一些操作
     private func resetGame(){
         ///清空分数
-        scoreLabel.text = "00000"
+        HitAirplanViewController.score = 0
+        scoreLabel.text = "000000"
         ///清除敌机
         for enemyAP in enemyAirplanes{
             removeEnemyAirplan(enemyAP)

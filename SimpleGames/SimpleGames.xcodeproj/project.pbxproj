@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		490186041F9A454C009A092F /* SkillPackage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490186031F9A454C009A092F /* SkillPackage.swift */; };
 		4937C03C1F94A6AF00C95EC6 /* BackgroundMapScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4937C03B1F94A6AF00C95EC6 /* BackgroundMapScrollView.swift */; };
 		495116151F8FB4BF00429417 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495116141F8FB4BF00429417 /* AppDelegate.swift */; };
 		495116171F8FB4BF00429417 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495116161F8FB4BF00429417 /* ViewController.swift */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		490186031F9A454C009A092F /* SkillPackage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillPackage.swift; sourceTree = "<group>"; };
 		4937C03B1F94A6AF00C95EC6 /* BackgroundMapScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundMapScrollView.swift; sourceTree = "<group>"; };
 		495116111F8FB4BF00429417 /* SimpleGames.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleGames.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		495116141F8FB4BF00429417 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -81,6 +83,7 @@
 			isa = PBXGroup;
 			children = (
 				496BA1C81F923A22002E6EB6 /* HitAirplanViewController.swift */,
+				490186031F9A454C009A092F /* SkillPackage.swift */,
 				49E6F9E21F95B5F000CE7005 /* ExplodeImageView.swift */,
 				4937C03B1F94A6AF00C95EC6 /* BackgroundMapScrollView.swift */,
 				496BA1CA1F925A58002E6EB6 /* EnemyAirplan.swift */,
@@ -163,6 +166,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				49E6F9E31F95B5F000CE7005 /* ExplodeImageView.swift in Sources */,
+				490186041F9A454C009A092F /* SkillPackage.swift in Sources */,
 				495116171F8FB4BF00429417 /* ViewController.swift in Sources */,
 				4937C03C1F94A6AF00C95EC6 /* BackgroundMapScrollView.swift in Sources */,
 				495116151F8FB4BF00429417 /* AppDelegate.swift in Sources */,
