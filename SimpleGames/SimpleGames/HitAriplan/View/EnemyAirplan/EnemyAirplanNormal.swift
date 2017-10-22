@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EnemyAirplan: UIImageView {
+class EnemyAirplanNormal: UIImageView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)

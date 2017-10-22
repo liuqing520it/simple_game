@@ -7,23 +7,32 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		490186041F9A454C009A092F /* SkillPackage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490186031F9A454C009A092F /* SkillPackage.swift */; };
-		4937C03C1F94A6AF00C95EC6 /* BackgroundMapScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4937C03B1F94A6AF00C95EC6 /* BackgroundMapScrollView.swift */; };
+		494F1B021F9CE654002B6D6C /* HitAirplanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494F1AF61F9CE654002B6D6C /* HitAirplanViewController.swift */; };
+		494F1B031F9CE654002B6D6C /* BackgroundMapScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494F1AF91F9CE654002B6D6C /* BackgroundMapScrollView.swift */; };
+		494F1B041F9CE654002B6D6C /* ExplodeImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494F1AFA1F9CE654002B6D6C /* ExplodeImageView.swift */; };
+		494F1B051F9CE654002B6D6C /* EnemyAirplanNormal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494F1AFC1F9CE654002B6D6C /* EnemyAirplanNormal.swift */; };
+		494F1B061F9CE654002B6D6C /* MyAirplan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494F1AFE1F9CE654002B6D6C /* MyAirplan.swift */; };
+		494F1B071F9CE654002B6D6C /* Shell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494F1B001F9CE654002B6D6C /* Shell.swift */; };
+		494F1B081F9CE654002B6D6C /* SkillPackage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494F1B011F9CE654002B6D6C /* SkillPackage.swift */; };
+		494F1B0A1F9CE6C6002B6D6C /* EnemyAirplanBig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494F1B091F9CE6C6002B6D6C /* EnemyAirplanBig.swift */; };
+		494F1B0C1F9CE6DD002B6D6C /* EnemyAirplanSmall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494F1B0B1F9CE6DD002B6D6C /* EnemyAirplanSmall.swift */; };
 		495116151F8FB4BF00429417 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495116141F8FB4BF00429417 /* AppDelegate.swift */; };
 		495116171F8FB4BF00429417 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495116161F8FB4BF00429417 /* ViewController.swift */; };
 		4951161A1F8FB4BF00429417 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 495116181F8FB4BF00429417 /* Main.storyboard */; };
 		4951161C1F8FB4BF00429417 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4951161B1F8FB4BF00429417 /* Assets.xcassets */; };
 		4951161F1F8FB4BF00429417 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4951161D1F8FB4BF00429417 /* LaunchScreen.storyboard */; };
-		496BA1C91F923A22002E6EB6 /* HitAirplanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496BA1C81F923A22002E6EB6 /* HitAirplanViewController.swift */; };
-		496BA1CB1F925A58002E6EB6 /* EnemyAirplan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496BA1CA1F925A58002E6EB6 /* EnemyAirplan.swift */; };
-		496BA1CD1F9313BF002E6EB6 /* MyAirplan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496BA1CC1F9313BF002E6EB6 /* MyAirplan.swift */; };
-		496BA1CF1F93195C002E6EB6 /* Shell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496BA1CE1F93195C002E6EB6 /* Shell.swift */; };
-		49E6F9E31F95B5F000CE7005 /* ExplodeImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E6F9E21F95B5F000CE7005 /* ExplodeImageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		490186031F9A454C009A092F /* SkillPackage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillPackage.swift; sourceTree = "<group>"; };
-		4937C03B1F94A6AF00C95EC6 /* BackgroundMapScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundMapScrollView.swift; sourceTree = "<group>"; };
+		494F1AF61F9CE654002B6D6C /* HitAirplanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HitAirplanViewController.swift; sourceTree = "<group>"; };
+		494F1AF91F9CE654002B6D6C /* BackgroundMapScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundMapScrollView.swift; sourceTree = "<group>"; };
+		494F1AFA1F9CE654002B6D6C /* ExplodeImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExplodeImageView.swift; sourceTree = "<group>"; };
+		494F1AFC1F9CE654002B6D6C /* EnemyAirplanNormal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyAirplanNormal.swift; sourceTree = "<group>"; };
+		494F1AFE1F9CE654002B6D6C /* MyAirplan.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyAirplan.swift; sourceTree = "<group>"; };
+		494F1B001F9CE654002B6D6C /* Shell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shell.swift; sourceTree = "<group>"; };
+		494F1B011F9CE654002B6D6C /* SkillPackage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkillPackage.swift; sourceTree = "<group>"; };
+		494F1B091F9CE6C6002B6D6C /* EnemyAirplanBig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyAirplanBig.swift; sourceTree = "<group>"; };
+		494F1B0B1F9CE6DD002B6D6C /* EnemyAirplanSmall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyAirplanSmall.swift; sourceTree = "<group>"; };
 		495116111F8FB4BF00429417 /* SimpleGames.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleGames.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		495116141F8FB4BF00429417 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		495116161F8FB4BF00429417 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -31,11 +40,6 @@
 		4951161B1F8FB4BF00429417 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4951161E1F8FB4BF00429417 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		495116201F8FB4BF00429417 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		496BA1C81F923A22002E6EB6 /* HitAirplanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HitAirplanViewController.swift; sourceTree = "<group>"; };
-		496BA1CA1F925A58002E6EB6 /* EnemyAirplan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyAirplan.swift; sourceTree = "<group>"; };
-		496BA1CC1F9313BF002E6EB6 /* MyAirplan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAirplan.swift; sourceTree = "<group>"; };
-		496BA1CE1F93195C002E6EB6 /* Shell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shell.swift; sourceTree = "<group>"; };
-		49E6F9E21F95B5F000CE7005 /* ExplodeImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplodeImageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +53,70 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		494F1AF41F9CE654002B6D6C /* HitAriplan */ = {
+			isa = PBXGroup;
+			children = (
+				494F1AF51F9CE654002B6D6C /* MainViewController */,
+				494F1AF71F9CE654002B6D6C /* View */,
+			);
+			path = HitAriplan;
+			sourceTree = "<group>";
+		};
+		494F1AF51F9CE654002B6D6C /* MainViewController */ = {
+			isa = PBXGroup;
+			children = (
+				494F1AF61F9CE654002B6D6C /* HitAirplanViewController.swift */,
+			);
+			path = MainViewController;
+			sourceTree = "<group>";
+		};
+		494F1AF71F9CE654002B6D6C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				494F1AF81F9CE654002B6D6C /* Background */,
+				494F1AFB1F9CE654002B6D6C /* EnemyAirplan */,
+				494F1AFD1F9CE654002B6D6C /* MyAirplan */,
+				494F1AFF1F9CE654002B6D6C /* Shell */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		494F1AF81F9CE654002B6D6C /* Background */ = {
+			isa = PBXGroup;
+			children = (
+				494F1AF91F9CE654002B6D6C /* BackgroundMapScrollView.swift */,
+				494F1AFA1F9CE654002B6D6C /* ExplodeImageView.swift */,
+			);
+			path = Background;
+			sourceTree = "<group>";
+		};
+		494F1AFB1F9CE654002B6D6C /* EnemyAirplan */ = {
+			isa = PBXGroup;
+			children = (
+				494F1AFC1F9CE654002B6D6C /* EnemyAirplanNormal.swift */,
+				494F1B091F9CE6C6002B6D6C /* EnemyAirplanBig.swift */,
+				494F1B0B1F9CE6DD002B6D6C /* EnemyAirplanSmall.swift */,
+			);
+			path = EnemyAirplan;
+			sourceTree = "<group>";
+		};
+		494F1AFD1F9CE654002B6D6C /* MyAirplan */ = {
+			isa = PBXGroup;
+			children = (
+				494F1AFE1F9CE654002B6D6C /* MyAirplan.swift */,
+			);
+			path = MyAirplan;
+			sourceTree = "<group>";
+		};
+		494F1AFF1F9CE654002B6D6C /* Shell */ = {
+			isa = PBXGroup;
+			children = (
+				494F1B001F9CE654002B6D6C /* Shell.swift */,
+				494F1B011F9CE654002B6D6C /* SkillPackage.swift */,
+			);
+			path = Shell;
+			sourceTree = "<group>";
+		};
 		495116081F8FB4BF00429417 = {
 			isa = PBXGroup;
 			children = (
@@ -70,27 +138,13 @@
 			children = (
 				495116141F8FB4BF00429417 /* AppDelegate.swift */,
 				495116161F8FB4BF00429417 /* ViewController.swift */,
-				496BA1C71F9239FC002E6EB6 /* HitAriplan */,
+				494F1AF41F9CE654002B6D6C /* HitAriplan */,
 				495116181F8FB4BF00429417 /* Main.storyboard */,
 				4951161B1F8FB4BF00429417 /* Assets.xcassets */,
 				4951161D1F8FB4BF00429417 /* LaunchScreen.storyboard */,
 				495116201F8FB4BF00429417 /* Info.plist */,
 			);
 			path = SimpleGames;
-			sourceTree = "<group>";
-		};
-		496BA1C71F9239FC002E6EB6 /* HitAriplan */ = {
-			isa = PBXGroup;
-			children = (
-				496BA1C81F923A22002E6EB6 /* HitAirplanViewController.swift */,
-				490186031F9A454C009A092F /* SkillPackage.swift */,
-				49E6F9E21F95B5F000CE7005 /* ExplodeImageView.swift */,
-				4937C03B1F94A6AF00C95EC6 /* BackgroundMapScrollView.swift */,
-				496BA1CA1F925A58002E6EB6 /* EnemyAirplan.swift */,
-				496BA1CC1F9313BF002E6EB6 /* MyAirplan.swift */,
-				496BA1CE1F93195C002E6EB6 /* Shell.swift */,
-			);
-			path = HitAriplan;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -165,15 +219,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				49E6F9E31F95B5F000CE7005 /* ExplodeImageView.swift in Sources */,
-				490186041F9A454C009A092F /* SkillPackage.swift in Sources */,
+				494F1B051F9CE654002B6D6C /* EnemyAirplanNormal.swift in Sources */,
+				494F1B081F9CE654002B6D6C /* SkillPackage.swift in Sources */,
+				494F1B031F9CE654002B6D6C /* BackgroundMapScrollView.swift in Sources */,
+				494F1B0C1F9CE6DD002B6D6C /* EnemyAirplanSmall.swift in Sources */,
 				495116171F8FB4BF00429417 /* ViewController.swift in Sources */,
-				4937C03C1F94A6AF00C95EC6 /* BackgroundMapScrollView.swift in Sources */,
 				495116151F8FB4BF00429417 /* AppDelegate.swift in Sources */,
-				496BA1CB1F925A58002E6EB6 /* EnemyAirplan.swift in Sources */,
-				496BA1C91F923A22002E6EB6 /* HitAirplanViewController.swift in Sources */,
-				496BA1CD1F9313BF002E6EB6 /* MyAirplan.swift in Sources */,
-				496BA1CF1F93195C002E6EB6 /* Shell.swift in Sources */,
+				494F1B0A1F9CE6C6002B6D6C /* EnemyAirplanBig.swift in Sources */,
+				494F1B041F9CE654002B6D6C /* ExplodeImageView.swift in Sources */,
+				494F1B061F9CE654002B6D6C /* MyAirplan.swift in Sources */,
+				494F1B071F9CE654002B6D6C /* Shell.swift in Sources */,
+				494F1B021F9CE654002B6D6C /* HitAirplanViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

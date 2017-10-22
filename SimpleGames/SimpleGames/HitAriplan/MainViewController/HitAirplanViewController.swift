@@ -85,7 +85,7 @@ class HitAirplanViewController: UIViewController {
         return label
     }()
     ///存放敌机的数组
-    private lazy var enemyAirplanes = [EnemyAirplan]()
+    private lazy var enemyAirplanes = [EnemyAirplanNormal]()
     ///存放击中爆炸的数组
     private lazy var explodeAnimationViews = [ExplodeImageView]()
     ///存放炮弹的数组
@@ -114,7 +114,7 @@ extension HitAirplanViewController {
         //%的值越小 敌机越多
         if HitAirplanViewController.i%dropSpeed == 0{
             let randowY = Int(arc4random_uniform(UInt32(Int((SCREEN_WIDTH - airplanWidth)))))
-            let enamyAirplan = EnemyAirplan(frame: CGRect(x: CGFloat(randowY), y: 0, width: airplanWidth, height: airplanHeight))
+            let enamyAirplan = EnemyAirplanNormal(frame: CGRect(x: CGFloat(randowY), y: 0, width: airplanWidth, height: airplanHeight))
             view.insertSubview(enamyAirplan, belowSubview: scoreLabel)
             enemyAirplanes.append(enamyAirplan)
         }
@@ -306,7 +306,7 @@ extension HitAirplanViewController {
     
     //MARK: - 移除操作
     ///移除敌机
-    private func removeEnemyAirplan(_ enemyAirPlan : EnemyAirplan){
+    private func removeEnemyAirplan(_ enemyAirPlan : EnemyAirplanNormal){
         guard let index = enemyAirplanes.index(of: enemyAirPlan) else {
             return
         }
