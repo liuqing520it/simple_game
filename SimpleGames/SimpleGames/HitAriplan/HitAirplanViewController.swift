@@ -8,7 +8,7 @@
 
 import UIKit
 
-let airplanWidth : CGFloat = 40.0
+let airplanWidth : CGFloat = 80.0
 
 let airplanHeight = airplanWidth
 
@@ -23,7 +23,7 @@ class HitAirplanViewController: UIViewController {
     ///控制移动速度
     private var gameSpeed : Int = 1
     ///控制timer duration 速度
-    private var durationSpeed : TimeInterval = 0.1
+    private var durationSpeed : TimeInterval = 0.01
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -114,7 +114,7 @@ extension HitAirplanViewController {
         //%的值越小 敌机越多
         if HitAirplanViewController.i%dropSpeed == 0{
             let randowY = Int(arc4random_uniform(UInt32(Int((SCREEN_WIDTH - airplanWidth)))))
-            let enamyAirplan = EnemyAirplan(frame: CGRect(x: CGFloat(randowY), y: 0, width: airplanWidth * 2, height: airplanHeight * 2))
+            let enamyAirplan = EnemyAirplan(frame: CGRect(x: CGFloat(randowY), y: 0, width: airplanWidth, height: airplanHeight))
             view.insertSubview(enamyAirplan, belowSubview: scoreLabel)
             enemyAirplanes.append(enamyAirplan)
         }

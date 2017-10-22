@@ -12,8 +12,7 @@ class EnemyAirplan: UIImageView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        image = UIImage(named:"enemyBigAirplan")
-        sizeToFit()
+        image = UIImage(named:"enemy1")
     }
     
     //下落方法
