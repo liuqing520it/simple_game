@@ -14,7 +14,7 @@ class ExplodeImageView: UIImageView {
         super.init(frame: frame)
         ///动图数组
         var images = [UIImage]()
-        for i in 0..<9{
+        for i in 0..<8{
             let animationImage = UIImage(named:String(format:"%d",i))
             images.append(animationImage!)
         }

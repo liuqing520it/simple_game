@@ -48,19 +48,10 @@ class HitAirplanViewController: UIViewController {
     private func configUI(){
         view.addSubview(backgroundScrollView)
         backgroundScrollView.contentOffset.y = SCREEN_HEIGHT
-        
-        let backBtn = UIButton(type: .custom)
-        backBtn.setTitle("exit", for: .normal)
-        backBtn.setTitleColor(UIColor.red, for: .normal)
-        backBtn.frame = CGRect(x: 20, y: 10, width: 0, height: 0)
-        backBtn.sizeToFit()
-        backBtn.addTarget(self, action: #selector(btnClick), for: .touchUpInside)
-        view.addSubview(backBtn)
-        
+
+        view.addSubview(backButton)
+        backButton.addTarget(self, action: #selector(btnClick), for: .touchUpInside)
         view.addSubview(myAirplan)
-        view.addSubview(scoreLabel)
-        scoreLabel.frame.origin.x = view.frame.maxX - scoreLabel.frame.size.width - 20
-        scoreLabel.frame.origin.y = 20
     }
     
     ///退出游戏按钮点击
@@ -73,17 +64,18 @@ class HitAirplanViewController: UIViewController {
     
     ///MARK: - 懒加载
     ///背景图片
-    fileprivate lazy var backgroundScrollView = BackgroundMapScrollView(frame: UIScreen.main.bounds)
-    ///积分label
-    fileprivate lazy var scoreLabel : UILabel = {
-       let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 20)
-        label.textColor = UIColor.white
-        label.text = "000000"
-        label.textAlignment = .right
-        label.sizeToFit()
-        return label
+    private lazy var backgroundScrollView = BackgroundMapScrollView(frame: UIScreen.main.bounds)
+    ///暂停按钮
+    private lazy var backButton : UIButton = {
+        let btn = UIButton(type: .custom)
+        btn.setImage(UIImage(named:"pause"), for: .normal)
+        btn.setTitle("000000", for: .normal)
+        btn.setTitleColor(UIColor.darkText, for: .normal)
+        btn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+        btn.sizeToFit()
+        return btn
     }()
+    
     ///存放敌机的数组
     private lazy var enemyAirplanes = [EnemyAirplanNormal]()
     ///存放击中爆炸的数组
@@ -115,7 +107,7 @@ extension HitAirplanViewController {
         if HitAirplanViewController.i%dropSpeed == 0{
             let randowY = Int(arc4random_uniform(UInt32(Int((SCREEN_WIDTH - airplanWidth)))))
             let enamyAirplan = EnemyAirplanNormal(frame: CGRect(x: CGFloat(randowY), y: 0, width: airplanWidth, height: airplanHeight))
-            view.insertSubview(enamyAirplan, belowSubview: scoreLabel)
+            view.insertSubview(enamyAirplan, belowSubview: backButton)
             enemyAirplanes.append(enamyAirplan)
         }
         //敌机下落
@@ -125,7 +117,7 @@ extension HitAirplanViewController {
         //%的值越小 炮弹越多
         if HitAirplanViewController.i%dropSpeed == 0 {
             for shells in myAirplan.createShell(){
-                view.insertSubview(shells, belowSubview: self.scoreLabel)
+                view.insertSubview(shells, belowSubview: self.backButton)
                 shellsArray.append(shells)
             }
         }
@@ -205,7 +197,7 @@ extension HitAirplanViewController {
                     explodeAnimation(enemyAp.frame)
                     ///击中后计分
                     HitAirplanViewController.score += 100
-                    scoreLabel.text = String(format:"%06d",HitAirplanViewController.score)
+                    backButton.setTitle(String(format:"%06d",HitAirplanViewController.score), for: .normal)
                     exchangeGameLevel()
                 }
             }
@@ -287,7 +279,7 @@ extension HitAirplanViewController {
     private func resetGame(){
         ///清空分数
         HitAirplanViewController.score = 0
-        scoreLabel.text = "000000"
+        backButton.setTitle("000000", for: .normal)
         ///清除敌机
         for enemyAP in enemyAirplanes{
             removeEnemyAirplan(enemyAP)

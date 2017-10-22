@@ -73,6 +73,7 @@
 		494F1AF71F9CE654002B6D6C /* View */ = {
 			isa = PBXGroup;
 			children = (
+				494F1B0D1F9CE79F002B6D6C /* EnterView */,
 				494F1AF81F9CE654002B6D6C /* Background */,
 				494F1AFB1F9CE654002B6D6C /* EnemyAirplan */,
 				494F1AFD1F9CE654002B6D6C /* MyAirplan */,
@@ -115,6 +116,13 @@
 				494F1B011F9CE654002B6D6C /* SkillPackage.swift */,
 			);
 			path = Shell;
+			sourceTree = "<group>";
+		};
+		494F1B0D1F9CE79F002B6D6C /* EnterView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = EnterView;
 			sourceTree = "<group>";
 		};
 		495116081F8FB4BF00429417 = {
