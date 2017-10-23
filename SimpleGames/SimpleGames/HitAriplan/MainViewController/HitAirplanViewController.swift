@@ -60,7 +60,9 @@ class HitAirplanViewController: UIViewController {
         ///退出后将定时器 销毁
         timer?.invalidate()
         timer = nil
-        dismiss(animated: true, completion: nil)
+        menuView.menuViewShow(200)
+        
+        //        dismiss(animated: true, completion: nil)
     }
     
     ///MARK: - 懒加载
@@ -85,6 +87,8 @@ class HitAirplanViewController: UIViewController {
     private lazy var shellsArray = [Shell]()
     ///"用户飞机"
     private lazy var myAirplan = MyAirplan(frame: myAirplanFrame)
+    ///菜单选项
+    private lazy var menuView = MenuView(frame: CGRect.zero)
 }
 
 //MARK: - 开启定时器后续操作

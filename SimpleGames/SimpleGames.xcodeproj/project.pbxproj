@@ -16,6 +16,7 @@
 		494F1B081F9CE654002B6D6C /* SkillPackage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494F1B011F9CE654002B6D6C /* SkillPackage.swift */; };
 		494F1B0A1F9CE6C6002B6D6C /* EnemyAirplanBig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494F1B091F9CE6C6002B6D6C /* EnemyAirplanBig.swift */; };
 		494F1B0C1F9CE6DD002B6D6C /* EnemyAirplanSmall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494F1B0B1F9CE6DD002B6D6C /* EnemyAirplanSmall.swift */; };
+		494F1B101F9D904E002B6D6C /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494F1B0F1F9D904E002B6D6C /* MenuView.swift */; };
 		495116151F8FB4BF00429417 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495116141F8FB4BF00429417 /* AppDelegate.swift */; };
 		495116171F8FB4BF00429417 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495116161F8FB4BF00429417 /* ViewController.swift */; };
 		4951161A1F8FB4BF00429417 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 495116181F8FB4BF00429417 /* Main.storyboard */; };
@@ -33,6 +34,7 @@
 		494F1B011F9CE654002B6D6C /* SkillPackage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkillPackage.swift; sourceTree = "<group>"; };
 		494F1B091F9CE6C6002B6D6C /* EnemyAirplanBig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyAirplanBig.swift; sourceTree = "<group>"; };
 		494F1B0B1F9CE6DD002B6D6C /* EnemyAirplanSmall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyAirplanSmall.swift; sourceTree = "<group>"; };
+		494F1B0F1F9D904E002B6D6C /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		495116111F8FB4BF00429417 /* SimpleGames.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleGames.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		495116141F8FB4BF00429417 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		495116161F8FB4BF00429417 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -73,6 +75,7 @@
 		494F1AF71F9CE654002B6D6C /* View */ = {
 			isa = PBXGroup;
 			children = (
+				494F1B0E1F9D9035002B6D6C /* Other */,
 				494F1B0D1F9CE79F002B6D6C /* EnterView */,
 				494F1AF81F9CE654002B6D6C /* Background */,
 				494F1AFB1F9CE654002B6D6C /* EnemyAirplan */,
@@ -123,6 +126,14 @@
 			children = (
 			);
 			path = EnterView;
+			sourceTree = "<group>";
+		};
+		494F1B0E1F9D9035002B6D6C /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				494F1B0F1F9D904E002B6D6C /* MenuView.swift */,
+			);
+			path = Other;
 			sourceTree = "<group>";
 		};
 		495116081F8FB4BF00429417 = {
@@ -228,6 +239,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				494F1B051F9CE654002B6D6C /* EnemyAirplanNormal.swift in Sources */,
+				494F1B101F9D904E002B6D6C /* MenuView.swift in Sources */,
 				494F1B081F9CE654002B6D6C /* SkillPackage.swift in Sources */,
 				494F1B031F9CE654002B6D6C /* BackgroundMapScrollView.swift in Sources */,
 				494F1B0C1F9CE6DD002B6D6C /* EnemyAirplanSmall.swift in Sources */,
