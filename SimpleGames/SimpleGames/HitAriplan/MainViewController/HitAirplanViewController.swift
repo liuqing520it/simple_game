@@ -52,6 +52,7 @@ class HitAirplanViewController: UIViewController {
         view.addSubview(backButton)
         backButton.addTarget(self, action: #selector(btnClick), for: .touchUpInside)
         view.addSubview(myAirplan)
+        myAirplan.maxAttck = 3
     }
     
     ///退出游戏按钮点击

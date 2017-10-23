@@ -10,7 +10,7 @@ import UIKit
 
 class MyAirplan: UIImageView {
 
-    ///攻击等级 默认是1
+    ///攻击等级 默认是1 取值范围 (1~3)
     var maxAttck : Int = 1
     
     override init(frame: CGRect) {
@@ -24,29 +24,36 @@ class MyAirplan: UIImageView {
     //MARK: - 外部控制方法
     //创建炮弹
     func createShell() -> [Shell]{
-        if maxAttck > 5 {
-            return [Shell]()
-        }
         var shellsArray = [Shell]()
         ///火力等级数组
-        ///等级1 一发炮弹
-        ///等级2 两发炮弹
-        ///等级3 三发炮弹
-        ///等级4 五发炮弹
-        let xMoveArray = [[0],[-1,1],[-1,0,1],[-2,-1,0,1,2]]
+        ///等级1 一发炮弹 !
+        ///等级2 两发炮弹 !! [-1,1]
+        ///等级3 三发炮弹 !!!
+        ///等级4 五发炮弹 ,[-2,-1,0,1,2] (暂不考虑)
+        let xMoveArray = [[0],[0.1,0.9],[-1,0,1]]
         for attck in 0..<maxAttck{
             shellsArray.append(singleShellCreate(CGFloat(xMoveArray[maxAttck-1][attck])))
         }
-        if maxAttck == 4 {//火力等级为4 则使用5发炮弹
-            shellsArray.append(singleShellCreate(CGFloat(xMoveArray[maxAttck-1][maxAttck])))
-        }
+        ///暂时不考虑5发子弹的情况 难度太简单了没意思
+//        if maxAttck == 4 {//火力等级为4 则使用5发炮弹
+//            shellsArray.append(singleShellCreate(CGFloat(xMoveArray[maxAttck-1][maxAttck])))
+//        }
         return shellsArray
     }
     
     ///单个炮弹
     private func singleShellCreate(_ xMove : CGFloat) -> Shell{
-        let singleShell = Shell(frame: CGRect(x: frame.origin.x, y: frame.origin.y - airplanHeight, width: airplanWidth, height: airplanHeight))
-        singleShell.xMove = xMove
+        let shellHeight = airplanHeight * 0.4
+        let shellWidth : CGFloat = 18
+        let singleShell = Shell(frame: CGRect(x: 0, y: 0, width: shellWidth, height: shellHeight))
+        //当子弹为2发的时候 就不要散开了 
+        if maxAttck == 2{
+            singleShell.center = CGPoint(x: frame.origin.x + airplanWidth * xMove, y: frame.origin.y)
+        }
+        else{
+            singleShell.center = CGPoint(x: frame.origin.x + airplanWidth * 0.5, y: frame.origin.y)
+            singleShell.xMove = xMove
+        }
         return singleShell
     }
     
