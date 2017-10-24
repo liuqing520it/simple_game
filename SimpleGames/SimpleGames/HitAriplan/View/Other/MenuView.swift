@@ -8,8 +8,11 @@
 
 import UIKit
 enum ClickIndex:Int {
+    //继续
     case ClickContinue = 0
+    //重新开始
     case ClickRestart = 1
+    //退出
     case ClickExit = 2
 }
 ///菜单选择
@@ -104,12 +107,12 @@ class MenuView: UIView {
     @objc private func btnClick(btn:UIButton){
         if resultScores != nil{//暂停
             if (dismissCallBack != nil){
-                dismissCallBack!(ClickIndex.init(rawValue:btn.tag)!)
+                dismissCallBack!(ClickIndex.init(rawValue:btn.tag + 1)!)
             }
             
         }else{//结束
             if (dismissCallBack != nil){
-                dismissCallBack!(ClickIndex.init(rawValue:btn.tag + 1)!)
+                dismissCallBack!(ClickIndex.init(rawValue:btn.tag)!)
             }
         }
         menuViewDissmiss()

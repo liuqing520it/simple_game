@@ -17,13 +17,8 @@ class HitAirplanViewController: UIViewController {
     private var timer : Timer?
     ///'我机'的frame
     private var myAirplanFrame = CGRect(x: (SCREEN_WIDTH - airplanWidth) * 0.5, y: SCREEN_HEIGHT - airplanWidth - 20, width: airplanWidth, height: airplanHeight)
-    
-    ///控制下落速度
-    private var dropSpeed : Int = 200
-    ///控制移动速度
-    private var gameSpeed : Int = 1
     ///控制timer duration 速度
-    private var durationSpeed : TimeInterval = 0.01
+    private var gameSpeed : Int = 2
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,9 +28,7 @@ class HitAirplanViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        alertTips("开始游戏?", "开始", "退出") {
-            self.initTimer()
-        }
+        self.initTimer()
     }
     
     //隐藏状态栏
@@ -52,17 +45,30 @@ class HitAirplanViewController: UIViewController {
         view.addSubview(backButton)
         backButton.addTarget(self, action: #selector(btnClick), for: .touchUpInside)
         view.addSubview(myAirplan)
-        myAirplan.maxAttck = 3
+//        myAirplan.maxAttck = 3
+        
+        menuView.dismissCallBack = { (index) in
+            if index == ClickIndex.ClickContinue{//继续
+                self.timer?.fireDate = Date.distantPast
+            }
+            else if index == ClickIndex.ClickRestart{//重新开始
+                self.timer?.fireDate = Date.distantPast
+                self.resetGame()
+            }
+            else{
+                self.timer?.invalidate()
+                self.timer = nil
+                self.dismiss(animated: true, completion: nil)
+            }
+        }
     }
     
-    ///退出游戏按钮点击
+    ///游戏暂停 按钮点击
     @objc private func btnClick(){
-        ///退出后将定时器 销毁
-        timer?.invalidate()
-        timer = nil
-        menuView.menuViewShow(200)
-        
-        //        dismiss(animated: true, completion: nil)
+        //先停止定时器
+        timer?.fireDate = Date.distantFuture
+
+        menuView.menuViewShow(nil)
     }
     
     ///MARK: - 懒加载
@@ -95,7 +101,9 @@ class HitAirplanViewController: UIViewController {
 extension HitAirplanViewController {
     ///开启定时器
     fileprivate func initTimer(){
-        self.timer = Timer.scheduledTimer(timeInterval: durationSpeed, target: self, selector: #selector(self.startTimer), userInfo: nil, repeats: true)
+        timer = Timer.init(fire: Date(), interval: 0.02, repeats: true, block: { (_) in
+            self.startTimer()
+        })
         RunLoop.current.add(self.timer!, forMode: .defaultRunLoopMode)
     }
     
@@ -109,7 +117,7 @@ extension HitAirplanViewController {
         
         ///创建敌机
         //%的值越小 敌机越多
-        if HitAirplanViewController.i%dropSpeed == 0{
+        if HitAirplanViewController.i%80 == 0{
             let randowY = Int(arc4random_uniform(UInt32(Int((SCREEN_WIDTH - airplanWidth)))))
             let enamyAirplan = EnemyAirplanNormal(frame: CGRect(x: CGFloat(randowY), y: 0, width: airplanWidth, height: airplanHeight))
             view.insertSubview(enamyAirplan, belowSubview: backButton)
@@ -120,7 +128,7 @@ extension HitAirplanViewController {
         
         ///创建炮弹
         //%的值越小 炮弹越多
-        if HitAirplanViewController.i%dropSpeed == 0 {
+        if HitAirplanViewController.i%80 == 0 {
             for shells in myAirplan.createShell(){
                 view.insertSubview(shells, belowSubview: self.backButton)
                 shellsArray.append(shells)
@@ -213,13 +221,13 @@ extension HitAirplanViewController {
     private func exchangeGameLevel(){
         let currentScore = HitAirplanViewController.score
         if currentScore == 1000 {
-            dropSpeed -= 50
+            
         }
         else if currentScore == 5000{
-            dropSpeed -= 100
+            
         }
         else if currentScore == 10000{
-            dropSpeed -= 200
+            
         }
     }
     
@@ -271,11 +279,10 @@ extension HitAirplanViewController {
                 ///1.停止定时器
                 timer?.invalidate()
                 timer = nil
+                
                 ///2.弹窗提示
-                alertTips("游戏结束!", "重新开始", "退出游戏", doCallBack: {
-                    //重新开始
-                    self.resetGame()
-                })
+                menuView.menuViewShow(HitAirplanViewController.score)
+                return
             }
         }
     }
@@ -294,7 +301,9 @@ extension HitAirplanViewController {
             removeShells(shells)
         }
         ///初始化timer重新开始
-        initTimer()
+        if timer == nil{
+            initTimer()
+        }
         //将我机 移到最初位置
         UIView.animate(withDuration: 0.25) {
             self.myAirplan.frame = self.myAirplanFrame
@@ -324,28 +333,5 @@ extension HitAirplanViewController {
         shells.removeFromSuperview()
     }
 }
-
-
-//MARK: - 提示框封装
-extension HitAirplanViewController{
-    ///弹出提示框
-    fileprivate func alertTips(_ title : String , _ doActionTitle : String , _ cancelActionTitle :   String , doCallBack:@escaping ()->()){
-        let alertVC = UIAlertController(title: title, message: "", preferredStyle: UIAlertControllerStyle.alert);
-        let beginAction = UIAlertAction(title: doActionTitle, style: UIAlertActionStyle.default) { (_) in
-            alertVC.dismiss(animated: true, completion: nil)
-            doCallBack()
-        }
-        let cancelAction = UIAlertAction(title: cancelActionTitle, style: UIAlertActionStyle.default) { (_) in
-            alertVC.dismiss(animated: true, completion: nil)
-            self.dismiss(animated: true, completion: nil)
-        }
-        alertVC.addAction(beginAction)
-        alertVC.addAction(cancelAction)
-        present(alertVC, animated: true, completion: nil)
-    }
-}
-
-
-
 
 
