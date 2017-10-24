@@ -45,7 +45,6 @@ class HitAirplanViewController: UIViewController {
         view.addSubview(backButton)
         backButton.addTarget(self, action: #selector(btnClick), for: .touchUpInside)
         view.addSubview(myAirplan)
-//        myAirplan.maxAttck = 3
         
         menuView.dismissCallBack = { (index) in
             if index == ClickIndex.ClickContinue{//继续
@@ -55,7 +54,7 @@ class HitAirplanViewController: UIViewController {
                 self.timer?.fireDate = Date.distantPast
                 self.resetGame()
             }
-            else{
+            else{//退出
                 self.timer?.invalidate()
                 self.timer = nil
                 self.dismiss(animated: true, completion: nil)
@@ -333,5 +332,3 @@ extension HitAirplanViewController {
         shells.removeFromSuperview()
     }
 }
-
-

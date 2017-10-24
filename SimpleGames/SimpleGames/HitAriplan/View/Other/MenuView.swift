@@ -40,21 +40,18 @@ class MenuView: UIView {
         maskBackView.backgroundColor = UIColor.init(white: 1.0, alpha: 0.5)
         window.addSubview(maskBackView)
         //如果分数为空则展示暂停画面
-        if let score = gameScore {
-            configUIOver(score)
+        if gameScore != nil {
+            configUIOver(gameScore!)
         }
         else {
             configUIPause()
         }
-        
         self.bounds = CGRect(x: 0, y: 0, width: 200, height: 200)
         self.center = CGPoint(x: SCREEN_WIDTH * 0.5, y: -SCREEN_HEIGHT*0.5)
         window.addSubview(self)
         UIView.animate(withDuration: 0.25, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.1, options: UIViewAnimationOptions.allowAnimatedContent, animations: {
-            self.center = CGPoint(x: SCREEN_WIDTH * 0.5, y: SCREEN_HEIGHT*0.5)
-        }) { (_) in
-            
-        }
+             self.center = CGPoint(x: SCREEN_WIDTH * 0.5, y: SCREEN_HEIGHT * 0.5)
+        }, completion: nil);
     }
     
     ///菜单消失
@@ -63,6 +60,7 @@ class MenuView: UIView {
         UIView.animate(withDuration: 0.25, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 10, options: UIViewAnimationOptions.allowAnimatedContent, animations: {
             self.center = CGPoint(x: SCREEN_WIDTH * 0.5, y: SCREEN_WIDTH + SCREEN_HEIGHT * 0.5)
         }) { (_) in
+            self.subviews.map({ $0.removeFromSuperview()})
             self.removeFromSuperview()
         }
     }
@@ -83,6 +81,7 @@ class MenuView: UIView {
     }
     
     func configButton(_ btnTitle : [String]){
+      print(subviews.count)
         //按钮宽
         let btnWidth : CGFloat = 150
         //按钮高
