@@ -8,14 +8,20 @@
 
 import UIKit
 
-class EnemyAirplanBig: UIImageView {
+class EnemyAirplanBig: EnemyAirplan {
 
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        image = UIImage(named:"enemy3")
     }
-    */
+    
+    override func dropDown() {
+        UIView.animate(withDuration: 0.25) {
+            self.transform = self.transform.translatedBy(x: 0, y: 2)
+        }
+    }
 
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }

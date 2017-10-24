@@ -8,8 +8,20 @@
 
 import UIKit
 
-class EnemyAirplanSmall: UIImageView {
-
- 
-
+class EnemyAirplanSmall: EnemyAirplan {
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        image = UIImage(named:"enemy1")
+    }
+    
+    override func dropDown() {
+        UIView.animate(withDuration: 0.25) {
+            self.transform = self.transform.translatedBy(x: 0, y: 6)
+        }
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }

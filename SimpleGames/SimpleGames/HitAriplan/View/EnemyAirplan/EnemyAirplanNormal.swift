@@ -8,18 +8,11 @@
 
 import UIKit
 
-class EnemyAirplanNormal: UIImageView {
+class EnemyAirplanNormal: EnemyAirplan {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        image = UIImage(named:"enemy1")
-    }
-    
-    //下落方法
-    func dropDown(){
-        UIView.animate(withDuration: 0.25) {
-            self.transform = self.transform.translatedBy(x: 0, y: 2)
-        }
+        image = UIImage(named:"enemy2")
     }
     
     required init?(coder aDecoder: NSCoder) {

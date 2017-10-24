@@ -84,8 +84,8 @@ class HitAirplanViewController: UIViewController {
         return btn
     }()
     
-    ///存放敌机的数组
-    private lazy var enemyAirplanes = [EnemyAirplanNormal]()
+    ///存放敌机的数组 大中小
+    private lazy var enemyAirplanes = [EnemyAirplan]()
     ///存放击中爆炸的数组
     private lazy var explodeAnimationViews = [ExplodeImageView]()
     ///存放炮弹的数组
@@ -100,7 +100,7 @@ class HitAirplanViewController: UIViewController {
 extension HitAirplanViewController {
     ///开启定时器
     fileprivate func initTimer(){
-        timer = Timer.init(fire: Date(), interval: 0.02, repeats: true, block: { (_) in
+        timer = Timer.init(fire: Date(), interval: 0.03, repeats: true, block: { (_) in
             self.startTimer()
         })
         RunLoop.current.add(self.timer!, forMode: .defaultRunLoopMode)
@@ -116,14 +116,31 @@ extension HitAirplanViewController {
         
         ///创建敌机
         //%的值越小 敌机越多
-        if HitAirplanViewController.i%80 == 0{
+        //小敌机
+        if HitAirplanViewController.i%100 == 0{
+            let randowY = Int(arc4random_uniform(UInt32(Int((SCREEN_WIDTH - airplanWidth * 0.6)))))
+            let enamyAirplanSmall = EnemyAirplanSmall(frame: CGRect(x: CGFloat(randowY), y: 0, width: airplanWidth * 0.6, height: airplanHeight * 0.6))
+            view.insertSubview(enamyAirplanSmall, belowSubview: backButton)
+            enemyAirplanes.append(enamyAirplanSmall)
+        }
+        
+        ///中等敌机
+        if HitAirplanViewController.i%500 == 0{
             let randowY = Int(arc4random_uniform(UInt32(Int((SCREEN_WIDTH - airplanWidth)))))
             let enamyAirplan = EnemyAirplanNormal(frame: CGRect(x: CGFloat(randowY), y: 0, width: airplanWidth, height: airplanHeight))
             view.insertSubview(enamyAirplan, belowSubview: backButton)
             enemyAirplanes.append(enamyAirplan)
         }
+        ///大敌机
+        if HitAirplanViewController.i%1000 == 0{
+            let randowY = Int(arc4random_uniform(UInt32(Int((SCREEN_WIDTH - airplanWidth*1.5)))))
+            let enamyAirplanBig = EnemyAirplanBig(frame: CGRect(x: CGFloat(randowY), y: 0, width: airplanWidth * 1.5, height: airplanHeight * 1.5))
+            view.insertSubview(enamyAirplanBig, belowSubview: backButton)
+            enemyAirplanes.append(enamyAirplanBig)
+        }
         //敌机下落
         dropEnemyAirplan()
+        
         
         ///创建炮弹
         //%的值越小 炮弹越多
@@ -137,10 +154,10 @@ extension HitAirplanViewController {
         sendShell()
         
         ///判断是否击中
-        isHitEnemyAirplan()
+//        isHitEnemyAirplan()
         
         ///判断是否游戏结束
-        isGameover()
+//        isGameover()
 //        print(">>>>>>>>>>>>")
 //        print("敌机数量\(enemyAirplanes.count)")
 //        print("---------")
@@ -165,7 +182,7 @@ extension HitAirplanViewController {
             ///敌机顶部任一点 超出屏幕
             let topPoint = CGPoint(x: enemy.frame.origin.x, y: enemy.frame.origin.y)
             if view.frame.contains(topPoint) == false {
-               removeEnemyAirplan(enemy)
+                removeEnemyAirplan(enemy)
             }
         }
     }
@@ -293,7 +310,7 @@ extension HitAirplanViewController {
         backButton.setTitle("000000", for: .normal)
         ///清除敌机
         for enemyAP in enemyAirplanes{
-            removeEnemyAirplan(enemyAP)
+            removeEnemyAirplan(enemyAP as! EnemyAirplanNormal)
         }
         ///清除炮弹
         for shells in shellsArray{
@@ -311,7 +328,7 @@ extension HitAirplanViewController {
     
     //MARK: - 移除操作
     ///移除敌机
-    private func removeEnemyAirplan(_ enemyAirPlan : EnemyAirplanNormal){
+    private func removeEnemyAirplan(_ enemyAirPlan : EnemyAirplan){
         guard let index = enemyAirplanes.index(of: enemyAirPlan) else {
             return
         }
