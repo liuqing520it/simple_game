@@ -81,7 +81,6 @@ class MenuView: UIView {
     }
     
     func configButton(_ btnTitle : [String]){
-      print(subviews.count)
         //按钮宽
         let btnWidth : CGFloat = 150
         //按钮高

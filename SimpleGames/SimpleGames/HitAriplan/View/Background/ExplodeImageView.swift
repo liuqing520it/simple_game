@@ -21,7 +21,6 @@ class ExplodeImageView: UIImageView {
         animationImages = images
         animationRepeatCount = 1
         animationDuration = 0.5
-        sizeToFit()
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -116,7 +116,7 @@ extension HitAirplanViewController {
         
         ///创建敌机
         //%的值越小 敌机越多
-        //小敌机
+        //小
         if HitAirplanViewController.i%100 == 0{
             let randowY = Int(arc4random_uniform(UInt32(Int((SCREEN_WIDTH - airplanWidth * 0.6)))))
             let enamyAirplanSmall = EnemyAirplanSmall(frame: CGRect(x: CGFloat(randowY), y: 0, width: airplanWidth * 0.6, height: airplanHeight * 0.6))
@@ -124,14 +124,14 @@ extension HitAirplanViewController {
             enemyAirplanes.append(enamyAirplanSmall)
         }
         
-        ///中等敌机
+        ///中
         if HitAirplanViewController.i%500 == 0{
             let randowY = Int(arc4random_uniform(UInt32(Int((SCREEN_WIDTH - airplanWidth)))))
             let enamyAirplan = EnemyAirplanNormal(frame: CGRect(x: CGFloat(randowY), y: 0, width: airplanWidth, height: airplanHeight))
             view.insertSubview(enamyAirplan, belowSubview: backButton)
             enemyAirplanes.append(enamyAirplan)
         }
-        ///大敌机
+        ///大
         if HitAirplanViewController.i%1000 == 0{
             let randowY = Int(arc4random_uniform(UInt32(Int((SCREEN_WIDTH - airplanWidth*1.5)))))
             let enamyAirplanBig = EnemyAirplanBig(frame: CGRect(x: CGFloat(randowY), y: 0, width: airplanWidth * 1.5, height: airplanHeight * 1.5))
@@ -154,7 +154,7 @@ extension HitAirplanViewController {
         sendShell()
         
         ///判断是否击中
-//        isHitEnemyAirplan()
+        isHitEnemyAirplan()
         
         ///判断是否游戏结束
 //        isGameover()
@@ -218,33 +218,40 @@ extension HitAirplanViewController {
             for shells in shellsArray{
                 ///取出炮弹顶部的中心点
                 let shellsOrigin = CGPoint(x: shells.frame.origin.x + shells.frame.width * 0.5, y: shells.frame.origin.y + 8)
-                ///如果敌机的frame包含炮弹的顶部中心点则需要移除
+                ///如果敌机的frame包含炮弹的顶部中心点
                 if enemyAp.frame.contains(shellsOrigin){
-                    removeEnemyAirplan(enemyAp)
+                    //击中次数加1
+                    enemyAp.hitNumber += 1
+                    //删除子弹
                     removeShells(shells)
-                    //展示击中动画
-                    explodeAnimation(enemyAp.frame)
-                    ///击中后计分
-                    HitAirplanViewController.score += 100
-                    backButton.setTitle(String(format:"%06d",HitAirplanViewController.score), for: .normal)
-                    exchangeGameLevel()
+                    if enemyAp.isMember(of: EnemyAirplanSmall.self) {//小, 击中一次爆炸
+                        if enemyAp.hitNumber == 1{
+                            afterHitDo(enemyAp, 100)
+                        }
+                    }
+                    else if enemyAp.isMember(of: EnemyAirplanNormal.self){//中, 击中两次爆炸
+                        if enemyAp.hitNumber == 2{
+                            afterHitDo(enemyAp, 200)
+                        }
+                    }else{//大,击中三次爆炸
+                        if enemyAp.hitNumber == 3{
+                            afterHitDo(enemyAp, 500)
+                        }
+                    }
                 }
             }
         }
     }
-    
-    //MARK: - 根据分数 增加游戏难度
-    private func exchangeGameLevel(){
-        let currentScore = HitAirplanViewController.score
-        if currentScore == 1000 {
-            
-        }
-        else if currentScore == 5000{
-            
-        }
-        else if currentScore == 10000{
-            
-        }
+
+    //MARK: - 击中后的操作
+    private func afterHitDo(_ enemyAp : EnemyAirplan, _ score : Int){
+        //删除敌机
+        removeEnemyAirplan(enemyAp)
+        //展示击中动画
+        explodeAnimation(enemyAp.frame)
+        ///击中后计分
+        HitAirplanViewController.score += score
+        backButton.setTitle(String(format:"%06d",HitAirplanViewController.score), for: .normal)
     }
     
     //MARK: - 击中爆炸动图
