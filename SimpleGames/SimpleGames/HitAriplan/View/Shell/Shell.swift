@@ -14,7 +14,7 @@ class Shell: UIImageView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        image = UIImage(named:"shell")
+        image = UIImage(named:"streak2")
     }
     
     ///发射炮弹

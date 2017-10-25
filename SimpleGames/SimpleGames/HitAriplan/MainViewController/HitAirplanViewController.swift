@@ -78,7 +78,7 @@ class HitAirplanViewController: UIViewController {
         let btn = UIButton(type: .custom)
         btn.setImage(UIImage(named:"pause"), for: .normal)
         btn.setTitle("000000", for: .normal)
-        btn.setTitleColor(UIColor.darkText, for: .normal)
+        btn.setTitleColor(UIColor.white, for: .normal)
         btn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
         btn.sizeToFit()
         return btn
@@ -90,6 +90,8 @@ class HitAirplanViewController: UIViewController {
     private lazy var explodeAnimationViews = [ExplodeImageView]()
     ///存放炮弹的数组
     private lazy var shellsArray = [Shell]()
+    ///武器包 数组
+    private lazy var weaponPacksArray = [WeaponPack]()
     ///"用户飞机"
     private lazy var myAirplan = MyAirplan(frame: myAirplanFrame)
     ///菜单选项
@@ -141,6 +143,7 @@ extension HitAirplanViewController {
         //敌机下落
         dropEnemyAirplan()
         
+        ///创建技能包
         
         ///创建炮弹
         //%的值越小 炮弹越多
@@ -317,7 +320,7 @@ extension HitAirplanViewController {
         backButton.setTitle("000000", for: .normal)
         ///清除敌机
         for enemyAP in enemyAirplanes{
-            removeEnemyAirplan(enemyAP as! EnemyAirplanNormal)
+            removeEnemyAirplan(enemyAP)
         }
         ///清除炮弹
         for shells in shellsArray{
