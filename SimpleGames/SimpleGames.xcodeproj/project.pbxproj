@@ -23,6 +23,10 @@
 		4951161C1F8FB4BF00429417 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4951161B1F8FB4BF00429417 /* Assets.xcassets */; };
 		4951161F1F8FB4BF00429417 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4951161D1F8FB4BF00429417 /* LaunchScreen.storyboard */; };
 		49A212C51F9F930500BE9947 /* EnemyAirplan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A212C41F9F930500BE9947 /* EnemyAirplan.swift */; };
+		49A212D31FA0364F00BE9947 /* WeaponPack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A212D21FA0364F00BE9947 /* WeaponPack.swift */; };
+		49A212D51FA0375100BE9947 /* WeaponPackAttackTwo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A212D41FA0375100BE9947 /* WeaponPackAttackTwo.swift */; };
+		49A212D71FA0378200BE9947 /* WeaponPackAttackThree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A212D61FA0378200BE9947 /* WeaponPackAttackThree.swift */; };
+		49A212D91FA0378F00BE9947 /* WeaponPackAttackUnclear.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A212D81FA0378F00BE9947 /* WeaponPackAttackUnclear.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +48,10 @@
 		4951161E1F8FB4BF00429417 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		495116201F8FB4BF00429417 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		49A212C41F9F930500BE9947 /* EnemyAirplan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyAirplan.swift; sourceTree = "<group>"; };
+		49A212D21FA0364F00BE9947 /* WeaponPack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeaponPack.swift; sourceTree = "<group>"; };
+		49A212D41FA0375100BE9947 /* WeaponPackAttackTwo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeaponPackAttackTwo.swift; sourceTree = "<group>"; };
+		49A212D61FA0378200BE9947 /* WeaponPackAttackThree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeaponPackAttackThree.swift; sourceTree = "<group>"; };
+		49A212D81FA0378F00BE9947 /* WeaponPackAttackUnclear.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeaponPackAttackUnclear.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,7 +86,7 @@
 			isa = PBXGroup;
 			children = (
 				494F1B0E1F9D9035002B6D6C /* Other */,
-				494F1B0D1F9CE79F002B6D6C /* EnterView */,
+				494F1B0D1F9CE79F002B6D6C /* WeaponPackView */,
 				494F1AF81F9CE654002B6D6C /* Background */,
 				494F1AFB1F9CE654002B6D6C /* EnemyAirplan */,
 				494F1AFD1F9CE654002B6D6C /* MyAirplan */,
@@ -124,11 +132,15 @@
 			path = Shell;
 			sourceTree = "<group>";
 		};
-		494F1B0D1F9CE79F002B6D6C /* EnterView */ = {
+		494F1B0D1F9CE79F002B6D6C /* WeaponPackView */ = {
 			isa = PBXGroup;
 			children = (
+				49A212D21FA0364F00BE9947 /* WeaponPack.swift */,
+				49A212D41FA0375100BE9947 /* WeaponPackAttackTwo.swift */,
+				49A212D61FA0378200BE9947 /* WeaponPackAttackThree.swift */,
+				49A212D81FA0378F00BE9947 /* WeaponPackAttackUnclear.swift */,
 			);
-			path = EnterView;
+			path = WeaponPackView;
 			sourceTree = "<group>";
 		};
 		494F1B0E1F9D9035002B6D6C /* Other */ = {
@@ -244,16 +256,20 @@
 				494F1B051F9CE654002B6D6C /* EnemyAirplanNormal.swift in Sources */,
 				494F1B101F9D904E002B6D6C /* MenuView.swift in Sources */,
 				494F1B081F9CE654002B6D6C /* SkillPackage.swift in Sources */,
+				49A212D31FA0364F00BE9947 /* WeaponPack.swift in Sources */,
 				494F1B031F9CE654002B6D6C /* BackgroundMapScrollView.swift in Sources */,
+				49A212D91FA0378F00BE9947 /* WeaponPackAttackUnclear.swift in Sources */,
 				494F1B0C1F9CE6DD002B6D6C /* EnemyAirplanSmall.swift in Sources */,
 				495116171F8FB4BF00429417 /* ViewController.swift in Sources */,
 				495116151F8FB4BF00429417 /* AppDelegate.swift in Sources */,
 				494F1B0A1F9CE6C6002B6D6C /* EnemyAirplanBig.swift in Sources */,
 				494F1B041F9CE654002B6D6C /* ExplodeImageView.swift in Sources */,
 				494F1B061F9CE654002B6D6C /* MyAirplan.swift in Sources */,
+				49A212D51FA0375100BE9947 /* WeaponPackAttackTwo.swift in Sources */,
 				494F1B071F9CE654002B6D6C /* Shell.swift in Sources */,
 				494F1B021F9CE654002B6D6C /* HitAirplanViewController.swift in Sources */,
 				49A212C51F9F930500BE9947 /* EnemyAirplan.swift in Sources */,
+				49A212D71FA0378200BE9947 /* WeaponPackAttackThree.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

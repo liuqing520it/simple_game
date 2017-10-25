@@ -157,7 +157,7 @@ extension HitAirplanViewController {
         isHitEnemyAirplan()
         
         ///判断是否游戏结束
-//        isGameover()
+        isGameover()
 //        print(">>>>>>>>>>>>")
 //        print("敌机数量\(enemyAirplanes.count)")
 //        print("---------")
