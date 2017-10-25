@@ -12,7 +12,7 @@ class WeaponPackAttackThree: WeaponPack {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        image = UIImage(named:"pack2")
+        image = UIImage(named:"skill-2")
     }
     
     required init?(coder aDecoder: NSCoder) {

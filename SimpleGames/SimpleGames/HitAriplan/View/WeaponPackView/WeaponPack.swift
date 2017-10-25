@@ -12,6 +12,8 @@ class WeaponPack: UIImageView {
 
     ///下落
     func dropDown(){
-        transform = transform.translatedBy(x: 0, y: 2)
+        UIView.animate(withDuration: 0.25) {
+            self.transform = self.transform.translatedBy(x: 0, y: 5)
+        }
     }
 }

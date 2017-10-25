@@ -12,11 +12,13 @@ class MyAirplan: UIImageView {
 
     ///攻击等级 默认是1 取值范围 (1~3)
     var maxAttck : Int = 1
+    ///核弹个数
+    var unclearCount : Int = 0
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         ///设置图片
-        image = UIImage(named:"airplan")
+        image = UIImage(named:"airplan1")
         ///打开用户交互
         isUserInteractionEnabled = true
     }

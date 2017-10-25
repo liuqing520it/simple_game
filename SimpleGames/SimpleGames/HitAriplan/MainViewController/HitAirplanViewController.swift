@@ -60,6 +60,12 @@ class HitAirplanViewController: UIViewController {
                 self.dismiss(animated: true, completion: nil)
             }
         }
+        
+        view.addSubview(unclearButton)
+        
+        unclearButton.frame = CGRect(x: 10, y: SCREEN_HEIGHT - 50, width: 50, height: 40)
+        
+        unclearButton.addTarget(self, action: #selector(unclearClick), for: .touchUpInside)
     }
     
     ///游戏暂停 按钮点击
@@ -68,6 +74,35 @@ class HitAirplanViewController: UIViewController {
         timer?.fireDate = Date.distantFuture
 
         menuView.menuViewShow(nil)
+    }
+    
+    ///核弹点击
+    @objc private func unclearClick(){
+        if myAirplan.unclearCount > 0{
+            myAirplan.unclearCount -= 1
+            unclearButton.setTitle(String(myAirplan.unclearCount), for: .normal)
+            unclearClickCalculateScoreAndExplode()
+        }
+    }
+    
+    ///核弹点击处理积分和爆炸
+    private func unclearClickCalculateScoreAndExplode(){
+        //清除敌机
+        for enemyAp in enemyAirplanes{
+            if enemyAp.isMember(of: EnemyAirplanSmall.self) {
+                afterHitDo(enemyAp, 100)
+            }
+            else if enemyAp.isMember(of: EnemyAirplanNormal.self) {
+                afterHitDo(enemyAp, 200)
+            }
+            else if enemyAp.isMember(of: EnemyAirplanBig.self) {
+                afterHitDo(enemyAp, 500)
+            }
+        }
+        ///清除炮弹
+        for shells in shellsArray{
+            removeShells(shells)
+        }
     }
     
     ///MARK: - 懒加载
@@ -84,6 +119,16 @@ class HitAirplanViewController: UIViewController {
         return btn
     }()
     
+    ///核弹按钮
+    private lazy var unclearButton : UIButton = {
+        let btn = UIButton(type: .custom)
+        btn.setImage(UIImage(named:"skillSmall"), for: .normal)
+        btn.setTitle("0", for: .normal)
+        btn.setTitleColor(UIColor.red, for: .normal)
+        btn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
+        btn.titleEdgeInsets = UIEdgeInsets.init(top: 0, left: 8, bottom: 0, right: 0)
+        return btn
+    }()
     ///存放敌机的数组 大中小
     private lazy var enemyAirplanes = [EnemyAirplan]()
     ///存放击中爆炸的数组
@@ -134,7 +179,7 @@ extension HitAirplanViewController {
             enemyAirplanes.append(enamyAirplan)
         }
         ///大
-        if HitAirplanViewController.i%1000 == 0{
+        if HitAirplanViewController.i%1000 == 0 && HitAirplanViewController.i != 0{
             let randowY = Int(arc4random_uniform(UInt32(Int((SCREEN_WIDTH - airplanWidth*1.5)))))
             let enamyAirplanBig = EnemyAirplanBig(frame: CGRect(x: CGFloat(randowY), y: 0, width: airplanWidth * 1.5, height: airplanHeight * 1.5))
             view.insertSubview(enamyAirplanBig, belowSubview: backButton)
@@ -144,6 +189,32 @@ extension HitAirplanViewController {
         dropEnemyAirplan()
         
         ///创建技能包
+        if HitAirplanViewController.i != 0{
+             //两发子弹
+            if HitAirplanViewController.i%1000 == 0{
+                let randowY = Int(arc4random_uniform(UInt32(Int((SCREEN_WIDTH - 20)))))
+                let weaponPackTwo = WeaponPackAttackTwo(frame: CGRect(x: CGFloat(randowY), y: 0, width:20, height:40))
+                view.insertSubview(weaponPackTwo, belowSubview: backButton)
+                weaponPacksArray.append(weaponPackTwo)
+            }
+             //三发子弹
+            if HitAirplanViewController.i%2000 == 0{
+                let randowY = Int(arc4random_uniform(UInt32(Int((SCREEN_WIDTH - airplanWidth)))))
+                let weaponPackThree = WeaponPackAttackThree(frame: CGRect(x: CGFloat(randowY), y: 0, width:airplanWidth * 0.4, height:airplanHeight * 0.4))
+                view.insertSubview(weaponPackThree, belowSubview: backButton)
+                weaponPacksArray.append(weaponPackThree)
+            }
+            //核弹
+            if HitAirplanViewController.i%3000 == 0{
+                let randowY = Int(arc4random_uniform(UInt32(Int((SCREEN_WIDTH - airplanWidth)))))
+                let weaponPackUnclear = WeaponPackAttackUnclear(frame: CGRect(x: CGFloat(randowY), y: 0, width: airplanWidth * 0.4, height: airplanHeight * 0.4))
+                view.insertSubview(weaponPackUnclear, belowSubview: backButton)
+                weaponPacksArray.append(weaponPackUnclear)
+            }
+        }
+        
+        //武器装备下落
+        weaponPackDropdown()
         
         ///创建炮弹
         //%的值越小 炮弹越多
@@ -158,6 +229,9 @@ extension HitAirplanViewController {
         
         ///判断是否击中
         isHitEnemyAirplan()
+        
+        //判断是否捡到武器包
+        isTakeWeaponPack()
         
         ///判断是否游戏结束
         isGameover()
@@ -186,6 +260,17 @@ extension HitAirplanViewController {
             let topPoint = CGPoint(x: enemy.frame.origin.x, y: enemy.frame.origin.y)
             if view.frame.contains(topPoint) == false {
                 removeEnemyAirplan(enemy)
+            }
+        }
+    }
+    
+    //MARK: - 武器包下落
+    private func weaponPackDropdown(){
+        for weapon in weaponPacksArray{
+            weapon.dropDown()
+            let topPoint = CGPoint(x: weapon.frame.origin.x, y: weapon.frame.origin.y)
+            if view.frame.contains(topPoint) == false{
+                removeWeaponPack(weapon)
             }
         }
     }
@@ -288,6 +373,33 @@ extension HitAirplanViewController {
         }
     }
     
+    //MARK: - 判断是否捡到技能包
+    private func isTakeWeaponPack(){
+        ///遍历武器包
+        for weapons in weaponPacksArray{
+            ///武器的中心点
+            let centerPoint = CGPoint(x: weapons.frame.origin.x + weapons.frame.size.width * 0.5, y: weapons.frame.origin.y + weapons.frame.size.height * 0.5)
+            //武器的中心点在我机的范围 代表捡到了
+            if myAirplan.frame.contains(centerPoint){
+                if weapons.isMember(of: WeaponPackAttackTwo.self){//2发子弹
+                    myAirplan.maxAttck = 2
+                }
+                else if weapons.isMember(of: WeaponPackAttackThree.self){//三发子弹
+                    myAirplan.maxAttck = 3
+                }
+                else{//核弹
+                    if myAirplan.unclearCount <= 10{
+                        myAirplan.unclearCount += 1
+                    }
+                    ///设置核弹个数
+                    unclearButton.setTitle(String(myAirplan.unclearCount), for: .normal)
+                }
+                //移除武器包
+                removeWeaponPack(weapons)
+            }
+        }
+    }
+    
     //MARK: - 判断是否被敌机撞毁
     private func isGameover(){
         ///计算"我机"各个边的中心点
@@ -326,6 +438,10 @@ extension HitAirplanViewController {
         for shells in shellsArray{
             removeShells(shells)
         }
+        ///清除武器包
+        for weaponPack in weaponPacksArray{
+            removeWeaponPack(weaponPack)
+        }
         ///初始化timer重新开始
         if timer == nil{
             initTimer()
@@ -334,6 +450,8 @@ extension HitAirplanViewController {
         UIView.animate(withDuration: 0.25) {
             self.myAirplan.frame = self.myAirplanFrame
         }
+        //攻击火力清空
+        myAirplan.maxAttck = 1
     }
     
     //MARK: - 移除操作
@@ -346,6 +464,17 @@ extension HitAirplanViewController {
         enemyAirplanes.remove(at: index)
         ///从父控件中移除
         enemyAirPlan.removeFromSuperview()
+    }
+    
+    ///移除武器包
+    private func removeWeaponPack(_ weapon : WeaponPack){
+        guard let index = weaponPacksArray.index(of: weapon) else {
+            return
+        }
+        ///从武器包组中移除
+        weaponPacksArray.remove(at: index)
+        ///从父控件中移除
+        weapon.removeFromSuperview()
     }
     
     ///移除子弹

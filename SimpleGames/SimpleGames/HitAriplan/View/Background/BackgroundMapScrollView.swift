@@ -21,7 +21,7 @@ class BackgroundMapScrollView: UIScrollView {
     //MARK: - 内部控制方法
     private func configUI(){
         for i in 0..<2{
-            let imageView = UIImageView(image: UIImage(named:"map3"))
+            let imageView = UIImageView(image: UIImage(named:"map2"))
             imageView.frame = CGRect(x: 0, y: SCREEN_HEIGHT * CGFloat(i), width: SCREEN_WIDTH, height: SCREEN_HEIGHT)
             addSubview(imageView)
         }
