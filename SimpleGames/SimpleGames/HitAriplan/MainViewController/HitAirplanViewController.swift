@@ -18,7 +18,7 @@ class HitAirplanViewController: UIViewController {
     ///'我机'的frame
     private var myAirplanFrame = CGRect(x: (SCREEN_WIDTH - airplanWidth) * 0.5, y: SCREEN_HEIGHT - airplanWidth - 20, width: airplanWidth, height: airplanHeight)
     ///控制timer duration 速度
-    private var gameSpeed : Int = 2
+    private var gameSpeed : Int = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -153,7 +153,7 @@ extension HitAirplanViewController {
         RunLoop.current.add(self.timer!, forMode: .defaultRunLoopMode)
     }
     
-    static var i : Int = 0
+    static var i : Double = 0
     @objc private func startTimer(){
         
         ///背景图片移动
@@ -162,9 +162,9 @@ extension HitAirplanViewController {
         }
         
         ///创建敌机
-        //%的值越小 敌机越多
+        //的值越小 敌机越多
         //小
-        if HitAirplanViewController.i%100 == 0{
+        if HitAirplanViewController.i.truncatingRemainder(dividingBy: 100) == 0{
             let randowY = Int(arc4random_uniform(UInt32(Int((SCREEN_WIDTH - airplanWidth * 0.6)))))
             let enamyAirplanSmall = EnemyAirplanSmall(frame: CGRect(x: CGFloat(randowY), y: 0, width: airplanWidth * 0.6, height: airplanHeight * 0.6))
             view.insertSubview(enamyAirplanSmall, belowSubview: backButton)
@@ -172,14 +172,14 @@ extension HitAirplanViewController {
         }
         
         ///中
-        if HitAirplanViewController.i%500 == 0{
+        if HitAirplanViewController.i.truncatingRemainder(dividingBy: 500) == 0{
             let randowY = Int(arc4random_uniform(UInt32(Int((SCREEN_WIDTH - airplanWidth)))))
             let enamyAirplan = EnemyAirplanNormal(frame: CGRect(x: CGFloat(randowY), y: 0, width: airplanWidth, height: airplanHeight))
             view.insertSubview(enamyAirplan, belowSubview: backButton)
             enemyAirplanes.append(enamyAirplan)
         }
         ///大
-        if HitAirplanViewController.i%1000 == 0 && HitAirplanViewController.i != 0{
+        if HitAirplanViewController.i.truncatingRemainder(dividingBy: 1000) == 0 && HitAirplanViewController.i != 0{
             let randowY = Int(arc4random_uniform(UInt32(Int((SCREEN_WIDTH - airplanWidth*1.5)))))
             let enamyAirplanBig = EnemyAirplanBig(frame: CGRect(x: CGFloat(randowY), y: 0, width: airplanWidth * 1.5, height: airplanHeight * 1.5))
             view.insertSubview(enamyAirplanBig, belowSubview: backButton)
@@ -191,21 +191,21 @@ extension HitAirplanViewController {
         ///创建技能包
         if HitAirplanViewController.i != 0{
              //两发子弹
-            if HitAirplanViewController.i%1000 == 0{
+            if HitAirplanViewController.i.truncatingRemainder(dividingBy: 1500) == 0{
                 let randowY = Int(arc4random_uniform(UInt32(Int((SCREEN_WIDTH - 20)))))
                 let weaponPackTwo = WeaponPackAttackTwo(frame: CGRect(x: CGFloat(randowY), y: 0, width:20, height:40))
                 view.insertSubview(weaponPackTwo, belowSubview: backButton)
                 weaponPacksArray.append(weaponPackTwo)
             }
              //三发子弹
-            if HitAirplanViewController.i%2000 == 0{
+            if HitAirplanViewController.i.truncatingRemainder(dividingBy: 2000) == 0{
                 let randowY = Int(arc4random_uniform(UInt32(Int((SCREEN_WIDTH - airplanWidth)))))
                 let weaponPackThree = WeaponPackAttackThree(frame: CGRect(x: CGFloat(randowY), y: 0, width:airplanWidth * 0.4, height:airplanHeight * 0.4))
                 view.insertSubview(weaponPackThree, belowSubview: backButton)
                 weaponPacksArray.append(weaponPackThree)
             }
             //核弹
-            if HitAirplanViewController.i%3000 == 0{
+            if HitAirplanViewController.i.truncatingRemainder(dividingBy: 3000) == 0{
                 let randowY = Int(arc4random_uniform(UInt32(Int((SCREEN_WIDTH - airplanWidth)))))
                 let weaponPackUnclear = WeaponPackAttackUnclear(frame: CGRect(x: CGFloat(randowY), y: 0, width: airplanWidth * 0.4, height: airplanHeight * 0.4))
                 view.insertSubview(weaponPackUnclear, belowSubview: backButton)
@@ -218,7 +218,7 @@ extension HitAirplanViewController {
         
         ///创建炮弹
         //%的值越小 炮弹越多
-        if HitAirplanViewController.i%80 == 0 {
+        if HitAirplanViewController.i.truncatingRemainder(dividingBy: 50) == 0 {
             for shells in myAirplan.createShell(){
                 view.insertSubview(shells, belowSubview: self.backButton)
                 shellsArray.append(shells)
@@ -242,7 +242,7 @@ extension HitAirplanViewController {
 //        print("<<<<<<<<<<<<")
         
         //加得越多 走的越快
-        HitAirplanViewController.i += gameSpeed
+        HitAirplanViewController.i += Double(gameSpeed)
         
         ///无限循环 背景图片
         if backgroundScrollView.contentOffset.y < 0 {
