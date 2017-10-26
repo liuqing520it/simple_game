@@ -147,7 +147,7 @@ class HitAirplanViewController: UIViewController {
 extension HitAirplanViewController {
     ///开启定时器
     fileprivate func initTimer(){
-        timer = Timer.init(fire: Date(), interval: 0.03, repeats: true, block: { (_) in
+        timer = Timer.init(fire: Date(), interval: 0.02, repeats: true, block: { (_) in
             self.startTimer()
         })
         RunLoop.current.add(self.timer!, forMode: .defaultRunLoopMode)
@@ -172,14 +172,14 @@ extension HitAirplanViewController {
         }
         
         ///中
-        if HitAirplanViewController.i.truncatingRemainder(dividingBy: 500) == 0{
+        if HitAirplanViewController.i.truncatingRemainder(dividingBy: 300) == 0{
             let randowY = Int(arc4random_uniform(UInt32(Int((SCREEN_WIDTH - airplanWidth)))))
             let enamyAirplan = EnemyAirplanNormal(frame: CGRect(x: CGFloat(randowY), y: 0, width: airplanWidth, height: airplanHeight))
             view.insertSubview(enamyAirplan, belowSubview: backButton)
             enemyAirplanes.append(enamyAirplan)
         }
         ///大
-        if HitAirplanViewController.i.truncatingRemainder(dividingBy: 1000) == 0 && HitAirplanViewController.i != 0{
+        if HitAirplanViewController.i.truncatingRemainder(dividingBy: 500) == 0 && HitAirplanViewController.i != 0{
             let randowY = Int(arc4random_uniform(UInt32(Int((SCREEN_WIDTH - airplanWidth*1.5)))))
             let enamyAirplanBig = EnemyAirplanBig(frame: CGRect(x: CGFloat(randowY), y: 0, width: airplanWidth * 1.5, height: airplanHeight * 1.5))
             view.insertSubview(enamyAirplanBig, belowSubview: backButton)
@@ -414,11 +414,19 @@ extension HitAirplanViewController {
                 enemyAP.frame.contains(myAirplanBottomCenter) ||
                 enemyAP.frame.contains(myAirplanLeftCenter) ||
                 enemyAP.frame.contains(myAirplanRightCenter) {
+                ///敌机爆炸
+                removeEnemyAirplan(enemyAP)
+                explodeAnimation(enemyAP.frame)
+                ///我机爆炸
+                explodeAnimation(myAirplan.frame)
+                //我机隐藏
+                myAirplan.isHidden = true
                 ///1.停止定时器
                 timer?.invalidate()
                 timer = nil
                 
                 ///2.弹窗提示
+                sleep(UInt32(0.5))
                 menuView.menuViewShow(HitAirplanViewController.score)
                 return
             }
@@ -427,6 +435,8 @@ extension HitAirplanViewController {
     
     //MARK: - 重新开始 清除一些操作
     private func resetGame(){
+        ///清空i
+        HitAirplanViewController.i = 0
         ///清空分数
         HitAirplanViewController.score = 0
         backButton.setTitle("000000", for: .normal)
@@ -447,6 +457,7 @@ extension HitAirplanViewController {
             initTimer()
         }
         //将我机 移到最初位置
+        myAirplan.isHidden = false
         UIView.animate(withDuration: 0.25) {
             self.myAirplan.frame = self.myAirplanFrame
         }

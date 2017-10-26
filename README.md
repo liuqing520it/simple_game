@@ -4,7 +4,7 @@ some simple game
 # 游戏一 :打飞机小游戏
 ### 整体效果图
 
-![image](https://github.com/liuqing520it/simple_game/raw/master/hitAirplan.gif)
+![image](https://github.com/liuqing520it/simple_game/raw/master/demo.gif)
 ### 捡到两颗炮弹的技能包
 
 ### 捡到三颗炮弹的技能包
