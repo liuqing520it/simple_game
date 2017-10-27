@@ -172,14 +172,14 @@ extension HitAirplanViewController {
         }
         
         ///中
-        if HitAirplanViewController.i.truncatingRemainder(dividingBy: 300) == 0{
+        if HitAirplanViewController.i.truncatingRemainder(dividingBy: 200) == 0{
             let randowY = Int(arc4random_uniform(UInt32(Int((SCREEN_WIDTH - airplanWidth)))))
             let enamyAirplan = EnemyAirplanNormal(frame: CGRect(x: CGFloat(randowY), y: 0, width: airplanWidth, height: airplanHeight))
             view.insertSubview(enamyAirplan, belowSubview: backButton)
             enemyAirplanes.append(enamyAirplan)
         }
         ///大
-        if HitAirplanViewController.i.truncatingRemainder(dividingBy: 500) == 0 && HitAirplanViewController.i != 0{
+        if HitAirplanViewController.i.truncatingRemainder(dividingBy: 300) == 0 && HitAirplanViewController.i != 0{
             let randowY = Int(arc4random_uniform(UInt32(Int((SCREEN_WIDTH - airplanWidth*1.5)))))
             let enamyAirplanBig = EnemyAirplanBig(frame: CGRect(x: CGFloat(randowY), y: 0, width: airplanWidth * 1.5, height: airplanHeight * 1.5))
             view.insertSubview(enamyAirplanBig, belowSubview: backButton)
@@ -463,6 +463,7 @@ extension HitAirplanViewController {
         }
         //攻击火力清空
         myAirplan.maxAttck = 1
+        myAirplan.unclearCount = 0 
     }
     
     //MARK: - 移除操作

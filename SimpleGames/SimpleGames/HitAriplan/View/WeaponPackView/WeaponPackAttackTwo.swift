@@ -13,7 +13,6 @@ class WeaponPackAttackTwo: WeaponPack {
     override init(frame: CGRect) {
         super.init(frame: frame)
         image = UIImage(named:"skill-1")
-//        backgroundColor = UIColor.white
     }
     
     required init?(coder aDecoder: NSCoder) {
