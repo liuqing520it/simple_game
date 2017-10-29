@@ -17,7 +17,7 @@ class EnemyAirplanSmall: EnemyAirplan {
     
     override func dropDown() {
         UIView.animate(withDuration: 0.25) {
-            self.transform = self.transform.translatedBy(x: 0, y: 6)
+            self.transform = self.transform.translatedBy(x: 0, y: 5)
         }
     }
     

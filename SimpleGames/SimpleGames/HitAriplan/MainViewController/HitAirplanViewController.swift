@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import SpriteKit
 let airplanWidth : CGFloat = 80.0
 
 let airplanHeight = airplanWidth
@@ -18,7 +18,7 @@ class HitAirplanViewController: UIViewController {
     ///'我机'的frame
     private var myAirplanFrame = CGRect(x: (SCREEN_WIDTH - airplanWidth) * 0.5, y: SCREEN_HEIGHT - airplanWidth - 20, width: airplanWidth, height: airplanHeight)
     ///控制timer duration 速度
-    private var gameSpeed : Int = 1
+    private var gameSpeed : Int = 2
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,9 +62,7 @@ class HitAirplanViewController: UIViewController {
         }
         
         view.addSubview(unclearButton)
-        
         unclearButton.frame = CGRect(x: 10, y: SCREEN_HEIGHT - 50, width: 50, height: 40)
-        
         unclearButton.addTarget(self, action: #selector(unclearClick), for: .touchUpInside)
     }
     
@@ -155,12 +153,10 @@ extension HitAirplanViewController {
     
     static var i : Double = 0
     @objc private func startTimer(){
-        
         ///背景图片移动
         UIView.animate(withDuration: 0.25) {
             self.backgroundScrollView.contentOffset.y -= CGFloat(self.gameSpeed)
         }
-        
         ///创建敌机
         //的值越小 敌机越多
         //小
@@ -218,7 +214,7 @@ extension HitAirplanViewController {
         
         ///创建炮弹
         //%的值越小 炮弹越多
-        if HitAirplanViewController.i.truncatingRemainder(dividingBy: 50) == 0 {
+        if HitAirplanViewController.i.truncatingRemainder(dividingBy: 80) == 0 {
             for shells in myAirplan.createShell(){
                 view.insertSubview(shells, belowSubview: self.backButton)
                 shellsArray.append(shells)
