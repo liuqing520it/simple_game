@@ -161,8 +161,8 @@ extension HitAirplanViewController {
         //的值越小 敌机越多
         //小
         if HitAirplanViewController.i.truncatingRemainder(dividingBy: 100) == 0{
-            let randowY = Int(arc4random_uniform(UInt32(Int((SCREEN_WIDTH - airplanWidth * 0.6)))))
-            let enamyAirplanSmall = EnemyAirplanSmall(frame: CGRect(x: CGFloat(randowY), y: 0, width: airplanWidth * 0.6, height: airplanHeight * 0.6))
+            let randowY = Int(arc4random_uniform(UInt32(Int((SCREEN_WIDTH - airplanWidth * 0.8)))))
+            let enamyAirplanSmall = EnemyAirplanSmall(frame: CGRect(x: CGFloat(randowY), y: 0, width: airplanWidth * 0.8, height: airplanHeight * 0.6))
             view.insertSubview(enamyAirplanSmall, belowSubview: backButton)
             enemyAirplanes.append(enamyAirplanSmall)
         }
@@ -459,7 +459,8 @@ extension HitAirplanViewController {
         }
         //攻击火力清空
         myAirplan.maxAttck = 1
-        myAirplan.unclearCount = 0 
+        myAirplan.unclearCount = 0
+        unclearButton.setTitle("0", for: .normal)
     }
     
     //MARK: - 移除操作
