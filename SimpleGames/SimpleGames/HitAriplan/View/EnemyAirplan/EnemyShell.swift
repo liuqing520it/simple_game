@@ -10,8 +10,6 @@ import UIKit
 
 class EnemyShell: UIImageView {
     
-    var myAirplanLocation : CGRect?
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         image = UIImage(named:"Battle_Enemy")
@@ -20,7 +18,7 @@ class EnemyShell: UIImageView {
 //    敌机发射子弹
     func dropDown(){
         UIView.animate(withDuration: 0.25) {
-            self.transform = self.transform.translatedBy(x: 0, y: 1)
+            self.transform = self.transform.translatedBy(x: 1, y: 5)
         }
     }
     

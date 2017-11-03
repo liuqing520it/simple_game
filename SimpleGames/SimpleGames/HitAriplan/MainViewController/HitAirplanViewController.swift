@@ -192,9 +192,6 @@ extension HitAirplanViewController {
         }
         ///敌机子弹下落
         dropEnemyShell()
-        ///
-        removeEnemyShells()
-        
         //敌机下落
         dropEnemyAirplan()
         
@@ -245,6 +242,7 @@ extension HitAirplanViewController {
         
         ///判断是否游戏结束
         isGameover()
+        
 //        print(">>>>>>>>>>>>")
 //        print("敌机数量\(enemyAirplanes.count)")
 //        print("---------")
@@ -277,22 +275,12 @@ extension HitAirplanViewController {
     private func dropEnemyShell(){
         
         for enemyShells in enemyShellsArray{
-            UIView.animate(withDuration: 2, animations: {
-                enemyShells.center = CGPoint(x: self.myAirplan.frame.maxX , y: self.myAirplan.frame.maxY + SCREEN_HEIGHT * 0.5)
-            })
-        }
-    }
-    
-//    删除敌机子弹
-    private func removeEnemyShells(){
-        if enemyShellsArray.count < 3{
-            return
-        }
-        for enemyShells in enemyShellsArray{
+            
+            enemyShells.dropDown()
             ///超出屏幕删除
             let topPoint = CGPoint(x: enemyShells.frame.origin.x, y: enemyShells.frame.origin.y)
             if view.frame.contains(topPoint) == false{
-                    removeEnemyShell(enemyShells)
+                removeEnemyShell(enemyShells)
             }
         }
     }
@@ -411,7 +399,7 @@ extension HitAirplanViewController {
         ///遍历武器包
         for weapons in weaponPacksArray{
             ///武器的中心点
-            let centerPoint = CGPoint(x: weapons.frame.origin.x + weapons.frame.size.width * 0.5, y: weapons.frame.origin.y + weapons.frame.size.height * 0.5)
+            let centerPoint = weapons.center
             //武器的中心点在我机的范围 代表捡到了
             if myAirplan.frame.contains(centerPoint){
                 if weapons.isMember(of: WeaponPackAttackTwo.self){//2发子弹
@@ -433,11 +421,6 @@ extension HitAirplanViewController {
         }
     }
     
-    //    MARK: - 判断是否被敌机的子弹击中
-    private func isHitByEnemyShell(){
-        
-    }
-    
     //MARK: - 判断是否被敌机撞毁
     private func isGameover(){
         ///计算"我机"各个边的中心点
@@ -455,20 +438,35 @@ extension HitAirplanViewController {
                 ///敌机爆炸
                 removeEnemyAirplan(enemyAP)
                 explodeAnimation(enemyAP.frame)
-                ///我机爆炸
-                explodeAnimation(myAirplan.frame)
-                //我机隐藏
-                myAirplan.isHidden = true
-                ///1.停止定时器
-                timer?.invalidate()
-                timer = nil
-                
-                ///2.弹窗提示
-                sleep(UInt32(0.5))
-                menuView.menuViewShow(HitAirplanViewController.score)
-                return
+                gameOver()
             }
         }
+        
+        // 判断是否被敌机的子弹击中
+        for enemyShells in enemyShellsArray{
+            ///敌机子弹的中心点
+            let centerPoint = enemyShells.center
+            if myAirplan.frame.contains(centerPoint){
+                ///删除子弹
+                removeEnemyShell(enemyShells)
+                gameOver()
+            }
+        }
+    }
+    
+    private func gameOver(){
+        ///我机爆炸
+        explodeAnimation(myAirplan.frame)
+        //我机隐藏
+        myAirplan.isHidden = true
+        ///1.停止定时器
+        timer?.invalidate()
+        timer = nil
+        
+        ///2.弹窗提示
+        sleep(UInt32(0.5))
+        menuView.menuViewShow(HitAirplanViewController.score)
+        return
     }
     
     //MARK: - 重新开始 清除一些操作
@@ -481,6 +479,10 @@ extension HitAirplanViewController {
         ///清除敌机
         for enemyAP in enemyAirplanes{
             removeEnemyAirplan(enemyAP)
+        }
+        //清除敌机子弹
+        for enemyShells in enemyShellsArray{
+            removeEnemyShell(enemyShells)
         }
         ///清除炮弹
         for shells in shellsArray{
