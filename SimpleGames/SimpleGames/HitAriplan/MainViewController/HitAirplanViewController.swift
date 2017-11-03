@@ -129,6 +129,8 @@ class HitAirplanViewController: UIViewController {
     }()
     ///存放敌机的数组 大中小
     private lazy var enemyAirplanes = [EnemyAirplan]()
+    ///存放敌机发射的子弹
+    private lazy var enemyShellsArray = [EnemyShell]()
     ///存放击中爆炸的数组
     private lazy var explodeAnimationViews = [ExplodeImageView]()
     ///存放炮弹的数组
@@ -178,9 +180,21 @@ extension HitAirplanViewController {
         if HitAirplanViewController.i.truncatingRemainder(dividingBy: 300) == 0 && HitAirplanViewController.i != 0{
             let randowY = Int(arc4random_uniform(UInt32(Int((SCREEN_WIDTH - airplanWidth*1.5)))))
             let enamyAirplanBig = EnemyAirplanBig(frame: CGRect(x: CGFloat(randowY), y: 0, width: airplanWidth * 1.5, height: airplanHeight * 1.5))
+//            enamyAirplanBig.sendShellsCount = 2
             view.insertSubview(enamyAirplanBig, belowSubview: backButton)
             enemyAirplanes.append(enamyAirplanBig)
+            
+            //敌机发射子弹
+            for enemyButtle in enamyAirplanBig.createBattle(){
+                view.insertSubview(enemyButtle, belowSubview: self.backButton)
+                enemyShellsArray.append(enemyButtle)
+            }
         }
+        ///敌机子弹下落
+        dropEnemyShell()
+        ///
+        removeEnemyShells()
+        
         //敌机下落
         dropEnemyAirplan()
         
@@ -256,6 +270,29 @@ extension HitAirplanViewController {
             let topPoint = CGPoint(x: enemy.frame.origin.x, y: enemy.frame.origin.y)
             if view.frame.contains(topPoint) == false {
                 removeEnemyAirplan(enemy)
+            }
+        }
+    }
+    //MARK: - 敌机子弹下落
+    private func dropEnemyShell(){
+        
+        for enemyShells in enemyShellsArray{
+            UIView.animate(withDuration: 2, animations: {
+                enemyShells.center = CGPoint(x: self.myAirplan.frame.maxX , y: self.myAirplan.frame.maxY + SCREEN_HEIGHT * 0.5)
+            })
+        }
+    }
+    
+//    删除敌机子弹
+    private func removeEnemyShells(){
+        if enemyShellsArray.count < 3{
+            return
+        }
+        for enemyShells in enemyShellsArray{
+            ///超出屏幕删除
+            let topPoint = CGPoint(x: enemyShells.frame.origin.x, y: enemyShells.frame.origin.y)
+            if view.frame.contains(topPoint) == false{
+                    removeEnemyShell(enemyShells)
             }
         }
     }
@@ -396,6 +433,11 @@ extension HitAirplanViewController {
         }
     }
     
+    //    MARK: - 判断是否被敌机的子弹击中
+    private func isHitByEnemyShell(){
+        
+    }
+    
     //MARK: - 判断是否被敌机撞毁
     private func isGameover(){
         ///计算"我机"各个边的中心点
@@ -484,6 +526,16 @@ extension HitAirplanViewController {
         weaponPacksArray.remove(at: index)
         ///从父控件中移除
         weapon.removeFromSuperview()
+    }
+    
+    private func removeEnemyShell(_ enemyShell : EnemyShell){
+        guard let index = enemyShellsArray.index(of: enemyShell) else {
+            return
+        }
+        ///从武器包组中移除
+        enemyShellsArray.remove(at: index)
+        ///从父控件中移除
+        enemyShell.removeFromSuperview()
     }
     
     ///移除子弹

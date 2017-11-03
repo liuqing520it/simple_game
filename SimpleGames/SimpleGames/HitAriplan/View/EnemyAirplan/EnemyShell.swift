@@ -20,7 +20,7 @@ class EnemyShell: UIImageView {
 //    敌机发射子弹
     func dropDown(){
         UIView.animate(withDuration: 0.25) {
-            self.transform = self.transform.translatedBy(x: 0, y: 2)
+            self.transform = self.transform.translatedBy(x: 0, y: 1)
         }
     }
     
