@@ -23,10 +23,11 @@ class EnemyAirplan: UIImageView {
     }
     
     //创建子弹
-    func createBattle() -> [EnemyShell]{
+    func createBattle(_ xMove : CGFloat) -> [EnemyShell]{
         var enemyShellArray = [EnemyShell]()
         for _ in 0..<sendShellsCount{
             let enemyShells = EnemyShell(frame: CGRect(x: frame.maxX - frame.size.width * 0.5 , y: frame.maxY, width: 10, height: 10))
+            enemyShells.xMove = xMove
             enemyShellArray.append(enemyShells)
         }
         return enemyShellArray

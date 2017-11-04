@@ -180,13 +180,14 @@ extension HitAirplanViewController {
         if HitAirplanViewController.i.truncatingRemainder(dividingBy: 300) == 0 && HitAirplanViewController.i != 0{
             let randowY = Int(arc4random_uniform(UInt32(Int((SCREEN_WIDTH - airplanWidth*1.5)))))
             let enamyAirplanBig = EnemyAirplanBig(frame: CGRect(x: CGFloat(randowY), y: 0, width: airplanWidth * 1.5, height: airplanHeight * 1.5))
-//            enamyAirplanBig.sendShellsCount = 2
             view.insertSubview(enamyAirplanBig, belowSubview: backButton)
             enemyAirplanes.append(enamyAirplanBig)
             
+            let xMove : CGFloat = enamyAirplanBig.center.x <= SCREEN_WIDTH * 0.5 ? 1 : -1;
+    
             //敌机发射子弹
-            for enemyButtle in enamyAirplanBig.createBattle(){
-                view.insertSubview(enemyButtle, belowSubview: self.backButton)
+            for enemyButtle in enamyAirplanBig.createBattle(xMove){
+                view.addSubview(enemyButtle)
                 enemyShellsArray.append(enemyButtle)
             }
         }
@@ -271,11 +272,10 @@ extension HitAirplanViewController {
             }
         }
     }
+    
     //MARK: - 敌机子弹下落
     private func dropEnemyShell(){
-        
         for enemyShells in enemyShellsArray{
-            
             enemyShells.dropDown()
             ///超出屏幕删除
             let topPoint = CGPoint(x: enemyShells.frame.origin.x, y: enemyShells.frame.origin.y)
@@ -399,7 +399,7 @@ extension HitAirplanViewController {
         ///遍历武器包
         for weapons in weaponPacksArray{
             ///武器的中心点
-            let centerPoint = weapons.center
+            let centerPoint = CGPoint(x: weapons.frame.maxX - weapons.frame.width * 0.5, y: weapons.frame.maxY - weapons.frame.height * 0.5)
             //武器的中心点在我机的范围 代表捡到了
             if myAirplan.frame.contains(centerPoint){
                 if weapons.isMember(of: WeaponPackAttackTwo.self){//2发子弹
@@ -445,7 +445,7 @@ extension HitAirplanViewController {
         // 判断是否被敌机的子弹击中
         for enemyShells in enemyShellsArray{
             ///敌机子弹的中心点
-            let centerPoint = enemyShells.center
+            let centerPoint = CGPoint(x: enemyShells.frame.maxX - 5, y: enemyShells.frame.maxY - 5)
             if myAirplan.frame.contains(centerPoint){
                 ///删除子弹
                 removeEnemyShell(enemyShells)
