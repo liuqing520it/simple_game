@@ -4,27 +4,27 @@ some simple game
 # 游戏一 :打飞机小游戏
 ### 整体效果图
 
-![image](https://github.com/liuqing520it/simple_game/raw/master/demo.gif)
+![image](https://github.com/liuqing520it/simple_game/raw/master/demoAll.gif)
 
 
 ### 捡到两颗炮弹的技能包:
 
-![image](https://github.com/liuqing520it/simple_game/raw/master/two.gif)
+![image](https://github.com/liuqing520it/simple_game/raw/master/twoShell.gif)
 
 
 ### 捡到三颗炮弹的技能包:
 
-![image](https://github.com/liuqing520it/simple_game/raw/master/three.gif)
+![image](https://github.com/liuqing520it/simple_game/raw/master/threeShell.gif)
 
 
 ### 捡到核弹技能包并使用
 
-![image](https://github.com/liuqing520it/simple_game/raw/master/unclear.gif)
+![image](https://github.com/liuqing520it/simple_game/raw/master/unclearShell.gif)
 
 
 ### 暂停菜单的使用
 
-![image](https://github.com/liuqing520it/simple_game/raw/master/menu.gif)
+![image](https://github.com/liuqing520it/simple_game/raw/master/menuShow.gif)
 
 ## V2.0 特色
 1. 敌机种类分三种(大,中,小);大敌机需要击中三次才会爆炸,中需要两次,小一次
