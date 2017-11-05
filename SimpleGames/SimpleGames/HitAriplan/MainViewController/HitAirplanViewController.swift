@@ -22,7 +22,6 @@ class HitAirplanViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         configUI()
     }
     
@@ -70,7 +69,6 @@ class HitAirplanViewController: UIViewController {
     @objc private func btnClick(){
         //先停止定时器
         timer?.fireDate = Date.distantFuture
-
         menuView.menuViewShow(nil)
     }
     
@@ -96,6 +94,10 @@ class HitAirplanViewController: UIViewController {
             else if enemyAp.isMember(of: EnemyAirplanBig.self) {
                 afterHitDo(enemyAp, 500)
             }
+        }
+        //清除敌机炮弹
+        for enemyShell in enemyShellsArray{
+            removeEnemyShell(enemyShell)
         }
         ///清除炮弹
         for shells in shellsArray{
@@ -176,6 +178,7 @@ extension HitAirplanViewController {
             view.insertSubview(enamyAirplan, belowSubview: backButton)
             enemyAirplanes.append(enamyAirplan)
         }
+        
         ///大
         if HitAirplanViewController.i.truncatingRemainder(dividingBy: 300) == 0 && HitAirplanViewController.i != 0{
             let randowY = Int(arc4random_uniform(UInt32(Int((SCREEN_WIDTH - airplanWidth*1.5)))))
@@ -243,13 +246,7 @@ extension HitAirplanViewController {
         
         ///判断是否游戏结束
         isGameover()
-        
-//        print(">>>>>>>>>>>>")
-//        print("敌机数量\(enemyAirplanes.count)")
-//        print("---------")
-//        print("子弹数量\(shellsArray.count)")
-//        print("<<<<<<<<<<<<")
-        
+
         //加得越多 走的越快
         HitAirplanViewController.i += Double(gameSpeed)
         
@@ -257,7 +254,6 @@ extension HitAirplanViewController {
         if backgroundScrollView.contentOffset.y < 0 {
             backgroundScrollView.setContentOffset(CGPoint.init(x: 0, y: SCREEN_HEIGHT), animated: false)
         }
-        
     }
     
     //MARK: - 下落敌机
