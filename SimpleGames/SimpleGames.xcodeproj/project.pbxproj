@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		491CBAC21FAF53FD00E34690 /* FlappyBirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491CBAC11FAF53FD00E34690 /* FlappyBirdViewController.swift */; };
+		491CBAC41FAF543F00E34690 /* FlappyMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491CBAC31FAF543F00E34690 /* FlappyMainViewController.swift */; };
 		494F1B021F9CE654002B6D6C /* HitAirplanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494F1AF61F9CE654002B6D6C /* HitAirplanViewController.swift */; };
 		494F1B031F9CE654002B6D6C /* BackgroundMapScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494F1AF91F9CE654002B6D6C /* BackgroundMapScrollView.swift */; };
 		494F1B041F9CE654002B6D6C /* ExplodeImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494F1AFA1F9CE654002B6D6C /* ExplodeImageView.swift */; };
@@ -31,6 +33,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		491CBAC11FAF53FD00E34690 /* FlappyBirdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlappyBirdViewController.swift; sourceTree = "<group>"; };
+		491CBAC31FAF543F00E34690 /* FlappyMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlappyMainViewController.swift; sourceTree = "<group>"; };
 		494F1AF61F9CE654002B6D6C /* HitAirplanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HitAirplanViewController.swift; sourceTree = "<group>"; };
 		494F1AF91F9CE654002B6D6C /* BackgroundMapScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundMapScrollView.swift; sourceTree = "<group>"; };
 		494F1AFA1F9CE654002B6D6C /* ExplodeImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExplodeImageView.swift; sourceTree = "<group>"; };
@@ -67,6 +71,39 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		491CBABD1FAF539700E34690 /* FlappyBird */ = {
+			isa = PBXGroup;
+			children = (
+				491CBAC01FAF53C400E34690 /* Model */,
+				491CBABF1FAF53BB00E34690 /* ViewController */,
+				491CBABE1FAF53AF00E34690 /* View */,
+			);
+			path = FlappyBird;
+			sourceTree = "<group>";
+		};
+		491CBABE1FAF53AF00E34690 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		491CBABF1FAF53BB00E34690 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				491CBAC31FAF543F00E34690 /* FlappyMainViewController.swift */,
+				491CBAC11FAF53FD00E34690 /* FlappyBirdViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		491CBAC01FAF53C400E34690 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		494F1AF41F9CE654002B6D6C /* HitAriplan */ = {
 			isa = PBXGroup;
 			children = (
@@ -173,6 +210,7 @@
 		495116131F8FB4BF00429417 /* SimpleGames */ = {
 			isa = PBXGroup;
 			children = (
+				491CBABD1FAF539700E34690 /* FlappyBird */,
 				495116141F8FB4BF00429417 /* AppDelegate.swift */,
 				495116161F8FB4BF00429417 /* ViewController.swift */,
 				494F1AF41F9CE654002B6D6C /* HitAriplan */,
@@ -261,6 +299,7 @@
 				494F1B081F9CE654002B6D6C /* SkillPackage.swift in Sources */,
 				49A212D31FA0364F00BE9947 /* WeaponPack.swift in Sources */,
 				494F1B031F9CE654002B6D6C /* BackgroundMapScrollView.swift in Sources */,
+				491CBAC41FAF543F00E34690 /* FlappyMainViewController.swift in Sources */,
 				49A212D91FA0378F00BE9947 /* WeaponPackAttackUnclear.swift in Sources */,
 				494F1B0C1F9CE6DD002B6D6C /* EnemyAirplanSmall.swift in Sources */,
 				495116171F8FB4BF00429417 /* ViewController.swift in Sources */,
@@ -268,6 +307,7 @@
 				499483A51FA8C49300A50FF8 /* EnemyShell.swift in Sources */,
 				494F1B0A1F9CE6C6002B6D6C /* EnemyAirplanBig.swift in Sources */,
 				494F1B041F9CE654002B6D6C /* ExplodeImageView.swift in Sources */,
+				491CBAC21FAF53FD00E34690 /* FlappyBirdViewController.swift in Sources */,
 				494F1B061F9CE654002B6D6C /* MyAirplan.swift in Sources */,
 				49A212D51FA0375100BE9947 /* WeaponPackAttackTwo.swift in Sources */,
 				494F1B071F9CE654002B6D6C /* Shell.swift in Sources */,

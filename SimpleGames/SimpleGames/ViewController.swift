@@ -10,6 +10,7 @@ import UIKit
 
 enum BtnTag : Int{
     case hitAirplane = 222
+    case flappyBird
 }
 
 class ViewController: UIViewController {
@@ -21,7 +22,7 @@ class ViewController: UIViewController {
     }
     
     private func addBtn(){
-        let btnArray = ["打飞机小游戏"]
+        let btnArray = ["打飞机小游戏","flappy-bird"]
         let btnWidth = (UIScreen.main.bounds.size.width - 40)
         let btnHeight : CGFloat = 50
         for i in 0..<btnArray.count {
@@ -38,6 +39,9 @@ class ViewController: UIViewController {
     @objc private func btnClick(btn : UIButton){
         if btn.tag == BtnTag.hitAirplane.rawValue {
             present(HitAirplanViewController(), animated: true, completion: nil)
+        }
+        else if btn.tag == BtnTag.flappyBird.rawValue {
+            present(FlappyMainViewController(), animated: true, completion: nil)
         }
     }
     
