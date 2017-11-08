@@ -8,60 +8,73 @@
 
 import UIKit
 
+///障碍物的宽度
+let kBarrierWidth : CGFloat = 80
+///障碍物的高度
+let kBarrierHeight : CGFloat = 500
+
 //游戏主界面
 class FlappyMainViewController: UIViewController {
 
-    var dyAnimator : UIDynamicAnimator?
-    
-    var redView = UIView(frame: CGRect(x: 100, y: 0, width: 50, height: 50))
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    
         view.backgroundColor = UIColor.white
-        redView.backgroundColor = UIColor.red
-        redView.center = view.center
-        view.addSubview(redView)
         
-        dyAnimator = UIDynamicAnimator(referenceView: view);
-        let gravityBehavior = UIGravityBehavior(items: [redView])
-        gravityBehavior.gravityDirection = CGVector(dx: 0, dy: 1)
-        gravityBehavior.magnitude = 2
-        dyAnimator!.addBehavior(gravityBehavior)
-        let dyBehavior = UIDynamicItemBehavior(items: [redView])
-        dyBehavior.elasticity = 0.8
-        dyAnimator?.addBehavior(dyBehavior)
-        let collision = UICollisionBehavior(items: [redView])// [[UICollisionBehavior alloc] initWithItems:@[self.boxView]];
-        // 让碰撞的行为生效
-        collision.translatesReferenceBoundsIntoBoundary = true;
+        configUI()
         
-        collision.collisionDelegate = self;
-        
-        let bezierPath = UIBezierPath.init(rect: redView.frame)
-        collision.addBoundary(withIdentifier: "bound" as NSCopying, for: bezierPath)
-        dyAnimator?.addBehavior(collision)
-       
+        initTimer()
     }
     
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-       
-       let pushBehavior = UIPushBehavior(items: [redView], mode: UIPushBehaviorMode.continuous)
-        pushBehavior.pushDirection = CGVector(dx: 0, dy: -20)
-        pushBehavior.magnitude = 2.0;
-        dyAnimator?.addBehavior(pushBehavior)
-        
+    private func configUI(){
+       configBarrier()
     }
+    
+    private func configBarrier(){
+        let tall = CGFloat(arc4random() % 200) + SCREEN_WIDTH
+        
+        topBarrier = UIImageView.init(frame: CGRect(x: SCREEN_WIDTH, y: -(kBarrierHeight - tall), width: kBarrierWidth, height: kBarrierHeight))
+        
+        topBarrier.image = UIImage(named:"TopLog")
+        view.addSubview(topBarrier)
+        
+        bottomBarrier = UIImageView.init(frame: CGRect(x: SCREEN_WIDTH, y: tall + 70, width: kBarrierWidth, height: kBarrierHeight))
+        bottomBarrier.image = UIImage(named:"BottomLog")
+        view.addSubview(bottomBarrier)
+    }
+    
+    ///头部障碍物
+    private lazy var topBarrier = UIImageView()
+    ///底部障碍物
+    private lazy var bottomBarrier = UIImageView()
+    ///定时器
+    private var timer : Timer?
 }
 
 
-extension FlappyMainViewController : UICollisionBehaviorDelegate{
-    func collisionBehavior(_ behavior: UICollisionBehavior, beganContactFor item: UIDynamicItem, withBoundaryIdentifier identifier: NSCopying?, at p: CGPoint) {
+//MARK: - 定时器开启
+extension FlappyMainViewController  {
+    
+/// 初始化定时器
+    private func initTimer(){
+        timer = Timer.init(timeInterval: 0.01, repeats: true, block: { (timer) in
+            self.startGame()
+        });
+        RunLoop.current.add(timer!, forMode: RunLoopMode.defaultRunLoopMode)
+    }
+    
+    private func startGame(){
+        topBarrier.frame.origin.x -= 1
+        bottomBarrier.frame.origin.x -= 1
+      
+        if topBarrier.frame.origin.x < -kBarrierWidth {
+            configBarrier()
+        }
         
     }
+    
 }
-
-
-
 
 
 
