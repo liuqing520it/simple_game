@@ -9,9 +9,9 @@
 import UIKit
 
 ///障碍物的宽度
-let kBarrierWidth : CGFloat = 80
+let kBarrierWidth : CGFloat = 100
 ///障碍物的高度
-let kBarrierHeight : CGFloat = 500
+let kBarrierHeight : CGFloat = 512
 
 //游戏主界面
 class FlappyMainViewController: UIViewController {
@@ -28,26 +28,15 @@ class FlappyMainViewController: UIViewController {
     }
     
     private func configUI(){
-       configBarrier()
+  
     }
     
-    private func configBarrier(){
-        let tall = CGFloat(arc4random() % 200) + SCREEN_WIDTH
-        
-        topBarrier = UIImageView.init(frame: CGRect(x: SCREEN_WIDTH, y: -(kBarrierHeight - tall), width: kBarrierWidth, height: kBarrierHeight))
-        
-        topBarrier.image = UIImage(named:"TopLog")
-        view.addSubview(topBarrier)
-        
-        bottomBarrier = UIImageView.init(frame: CGRect(x: SCREEN_WIDTH, y: tall + 70, width: kBarrierWidth, height: kBarrierHeight))
-        bottomBarrier.image = UIImage(named:"BottomLog")
-        view.addSubview(bottomBarrier)
-    }
+    ///顶部障碍物
+    private var topArray = [TopBarrier]()
     
-    ///头部障碍物
-    private lazy var topBarrier = UIImageView()
     ///底部障碍物
-    private lazy var bottomBarrier = UIImageView()
+    private var bottomArray = [BottomBarrier]()
+    
     ///定时器
     private var timer : Timer?
 }
@@ -58,20 +47,39 @@ extension FlappyMainViewController  {
     
 /// 初始化定时器
     private func initTimer(){
-        timer = Timer.init(timeInterval: 0.01, repeats: true, block: { (timer) in
+        timer = Timer.init(timeInterval: 0.02, repeats: true, block: { (timer) in
             self.startGame()
         });
         RunLoop.current.add(timer!, forMode: RunLoopMode.defaultRunLoopMode)
     }
     
+    static var i : Int = 0
     private func startGame(){
-        topBarrier.frame.origin.x -= 1
-        bottomBarrier.frame.origin.x -= 1
-      
-        if topBarrier.frame.origin.x < -kBarrierWidth {
-            configBarrier()
+        
+        if FlappyMainViewController.i % 150 == 0 {
+            let topBarrier = TopBarrier(frame: CGRect(x: SCREEN_WIDTH  , y: 0, width: kBarrierWidth, height: kBarrierHeight))
+            view.addSubview(topBarrier)
+            topArray.append(topBarrier)
+            
+            let bottomBarrier = BottomBarrier(frame: CGRect(x: SCREEN_WIDTH, y: SCREEN_HEIGHT - 100, width: kBarrierWidth, height: kBarrierHeight))
+            view.addSubview(bottomBarrier)
+            bottomArray.append(bottomBarrier)
+            
         }
         
+        moves()
+        
+        FlappyMainViewController.i += 1
+      
+    }
+    
+    private func moves(){
+        for top in topArray{
+            top.moveToLeft()
+        }
+        for bottom in bottomArray{
+            bottom.moveToLeft()
+        }
     }
     
 }
