@@ -27,6 +27,7 @@
 		496163151FB491C4000715B7 /* TopBarrier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496163141FB491C4000715B7 /* TopBarrier.swift */; };
 		496163171FB4921A000715B7 /* BottomBarrier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496163161FB4921A000715B7 /* BottomBarrier.swift */; };
 		496163191FB49324000715B7 /* BarrierMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496163181FB49324000715B7 /* BarrierMain.swift */; };
+		496163421FB89096000715B7 /* BirdImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496163411FB89096000715B7 /* BirdImageView.swift */; };
 		499483A51FA8C49300A50FF8 /* EnemyShell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499483A41FA8C49300A50FF8 /* EnemyShell.swift */; };
 		49A212C51F9F930500BE9947 /* EnemyAirplan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A212C41F9F930500BE9947 /* EnemyAirplan.swift */; };
 		49A212D31FA0364F00BE9947 /* WeaponPack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A212D21FA0364F00BE9947 /* WeaponPack.swift */; };
@@ -58,6 +59,7 @@
 		496163141FB491C4000715B7 /* TopBarrier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBarrier.swift; sourceTree = "<group>"; };
 		496163161FB4921A000715B7 /* BottomBarrier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomBarrier.swift; sourceTree = "<group>"; };
 		496163181FB49324000715B7 /* BarrierMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarrierMain.swift; sourceTree = "<group>"; };
+		496163411FB89096000715B7 /* BirdImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirdImageView.swift; sourceTree = "<group>"; };
 		499483A41FA8C49300A50FF8 /* EnemyShell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyShell.swift; sourceTree = "<group>"; };
 		49A212C41F9F930500BE9947 /* EnemyAirplan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyAirplan.swift; sourceTree = "<group>"; };
 		49A212D21FA0364F00BE9947 /* WeaponPack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeaponPack.swift; sourceTree = "<group>"; };
@@ -90,9 +92,8 @@
 		491CBABE1FAF53AF00E34690 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				496163181FB49324000715B7 /* BarrierMain.swift */,
-				496163141FB491C4000715B7 /* TopBarrier.swift */,
-				496163161FB4921A000715B7 /* BottomBarrier.swift */,
+				496163401FB89060000715B7 /* Brids */,
+				4961633F1FB89056000715B7 /* Barrier */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -231,6 +232,24 @@
 			path = SimpleGames;
 			sourceTree = "<group>";
 		};
+		4961633F1FB89056000715B7 /* Barrier */ = {
+			isa = PBXGroup;
+			children = (
+				496163181FB49324000715B7 /* BarrierMain.swift */,
+				496163141FB491C4000715B7 /* TopBarrier.swift */,
+				496163161FB4921A000715B7 /* BottomBarrier.swift */,
+			);
+			path = Barrier;
+			sourceTree = "<group>";
+		};
+		496163401FB89060000715B7 /* Brids */ = {
+			isa = PBXGroup;
+			children = (
+				496163411FB89096000715B7 /* BirdImageView.swift */,
+			);
+			path = Brids;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -324,6 +343,7 @@
 				49A212D51FA0375100BE9947 /* WeaponPackAttackTwo.swift in Sources */,
 				494F1B071F9CE654002B6D6C /* Shell.swift in Sources */,
 				494F1B021F9CE654002B6D6C /* HitAirplanViewController.swift in Sources */,
+				496163421FB89096000715B7 /* BirdImageView.swift in Sources */,
 				49A212C51F9F930500BE9947 /* EnemyAirplan.swift in Sources */,
 				49A212D71FA0378200BE9947 /* WeaponPackAttackThree.swift in Sources */,
 			);

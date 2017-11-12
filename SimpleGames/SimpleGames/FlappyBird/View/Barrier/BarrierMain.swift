@@ -13,7 +13,7 @@ class BarrierMain: UIImageView {
     ///往左移动
     func moveToLeft(){
         UIView.animate(withDuration: 0.25) {
-            self.transform = self.transform.translatedBy(x: -2, y: 0)
+            self.transform = self.transform.translatedBy(x: -1, y: 0)
         }
     }
 

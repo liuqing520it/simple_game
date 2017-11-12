@@ -8,6 +8,10 @@
 
 import UIKit
 
+///小鸟的高
+let kBirdWidth : CGFloat = 80
+///小鸟的宽
+let kBirdHeight = kBirdWidth
 ///障碍物的宽度
 let kBarrierWidth : CGFloat = 100
 ///障碍物的高度
@@ -22,30 +26,36 @@ class FlappyMainViewController: UIViewController {
     
         view.backgroundColor = UIColor.white
         
+        initTimer()
+        
         configUI()
         
-        initTimer()
     }
     
     private func configUI(){
-  
+        
+        view.addSubview(birdView)
+        
+        if birdView.isAnimating == false{
+            birdView.startAnimating()
+        }
+        
     }
     
     ///顶部障碍物
-    private var topArray = [TopBarrier]()
-    
+    private lazy var topArray = [TopBarrier]()
     ///底部障碍物
-    private var bottomArray = [BottomBarrier]()
-    
+    private lazy var bottomArray = [BottomBarrier]()
+    ///bird
+    private var birdView = BirdImageView(frame: CGRect(x: 30, y: SCREEN_HEIGHT * 0.5, width: kBirdWidth, height: kBirdHeight))
     ///定时器
     private var timer : Timer?
 }
 
-
 //MARK: - 定时器开启
 extension FlappyMainViewController  {
     
-/// 初始化定时器
+    /// 初始化定时器
     private func initTimer(){
         timer = Timer.init(timeInterval: 0.02, repeats: true, block: { (timer) in
             self.startGame()
@@ -58,11 +68,11 @@ extension FlappyMainViewController  {
         
         if FlappyMainViewController.i % 150 == 0 {
             let topBarrier = TopBarrier(frame: CGRect(x: SCREEN_WIDTH  , y: 0, width: kBarrierWidth, height: kBarrierHeight))
-            view.addSubview(topBarrier)
+            view.insertSubview(topBarrier, belowSubview: birdView)
             topArray.append(topBarrier)
             
             let bottomBarrier = BottomBarrier(frame: CGRect(x: SCREEN_WIDTH, y: SCREEN_HEIGHT - 100, width: kBarrierWidth, height: kBarrierHeight))
-            view.addSubview(bottomBarrier)
+            view.insertSubview(bottomBarrier, belowSubview: birdView)
             bottomArray.append(bottomBarrier)
             
         }
@@ -73,14 +83,41 @@ extension FlappyMainViewController  {
       
     }
     
+//    开始移动
     private func moves(){
         for top in topArray{
             top.moveToLeft()
+            if top.frame.maxX < 0{
+                removeBarriers(top)
+            }
+            
         }
+        
         for bottom in bottomArray{
             bottom.moveToLeft()
+            if bottom.frame.maxX < 0{
+                removeBarriers(bottom)
+            }
         }
     }
+    
+//    超出部分删除
+    private func removeBarriers(_ barrier : BarrierMain){
+    
+        var index : Int?
+        
+        if barrier.isMember(of: TopBarrier.self){
+            index = topArray.index(of: barrier as! TopBarrier)
+            topArray.remove(at: index!)
+        }else if barrier.isMember(of: BottomBarrier.self){
+            index = bottomArray.index(of: barrier as! BottomBarrier)
+            bottomArray.remove(at: index!)
+        }
+        ///从父控件中移除
+        barrier.removeFromSuperview()
+        
+    }
+    
     
 }
 
