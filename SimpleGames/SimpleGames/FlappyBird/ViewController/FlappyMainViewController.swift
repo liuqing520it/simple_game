@@ -42,12 +42,19 @@ class FlappyMainViewController: UIViewController {
         
     }
     
+    //屏幕点击
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        print(">>>>>>")
+    }
+    
+    ///记录小鸟是上升还是下降 是否点击默认是未点击
+    private lazy var isTap = false
     ///顶部障碍物
     private lazy var topArray = [TopBarrier]()
     ///底部障碍物
     private lazy var bottomArray = [BottomBarrier]()
     ///bird
-    private var birdView = BirdImageView(frame: CGRect(x: 30, y: SCREEN_HEIGHT * 0.5, width: kBirdWidth, height: kBirdHeight))
+    private lazy var birdView = BirdImageView(frame: CGRect(x: 30, y: SCREEN_HEIGHT * 0.5, width: kBirdWidth, height: kBirdHeight))
     ///定时器
     private var timer : Timer?
 }
@@ -115,22 +122,7 @@ extension FlappyMainViewController  {
         }
         ///从父控件中移除
         barrier.removeFromSuperview()
-        
     }
-    
-    
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 

@@ -14,6 +14,7 @@ class BottomBarrier: BarrierMain {
         super.init(frame: frame)
         
         image = UIImage(named:"BottomLog")
+        
     }
  
     required init?(coder aDecoder: NSCoder) {

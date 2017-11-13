@@ -12,7 +12,9 @@ class TopBarrier: BarrierMain {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
         image = UIImage(named:"TopLog")
+        
     }
     
     required init?(coder aDecoder: NSCoder) {

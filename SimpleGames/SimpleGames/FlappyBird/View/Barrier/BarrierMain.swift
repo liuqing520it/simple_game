@@ -10,6 +10,20 @@ import UIKit
 
 class BarrierMain: UIImageView {
 
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        isUserInteractionEnabled = true
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        print("233")
+    }
+    
     ///往左移动
     func moveToLeft(){
         UIView.animate(withDuration: 0.25) {
