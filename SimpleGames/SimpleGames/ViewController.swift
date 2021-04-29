@@ -28,7 +28,7 @@ class ViewController: UIViewController {
         for i in 0..<btnArray.count {
             let btn = UIButton(type: .custom)
             btn.backgroundColor = UIColor.orange
-            btn.frame = CGRect(x: 20.0 , y: 20.0 + (btnHeight + 10) * CGFloat(i) , width: btnWidth, height: btnHeight)
+            btn.frame = CGRect(x: 20.0 , y: 64.0 + (btnHeight + 10) * CGFloat(i) , width: btnWidth, height: btnHeight)
             btn.setTitle(btnArray[i], for: .normal)
             btn.tag = BtnTag.hitAirplane.rawValue + i
             btn.addTarget(self, action: #selector(btnClick(btn:)), for: .touchUpInside)
@@ -37,8 +37,11 @@ class ViewController: UIViewController {
     }
     
     @objc private func btnClick(btn : UIButton){
+        self.modalPresentationStyle = .fullScreen
         if btn.tag == BtnTag.hitAirplane.rawValue {
-            present(HitAirplanViewController(), animated: true, completion: nil)
+            let airplanVC = HitAirplanViewController();
+            airplanVC.modalPresentationStyle = .fullScreen
+            present(airplanVC, animated: true, completion: nil)
         }
         else if btn.tag == BtnTag.flappyBird.rawValue {
             present(FlappyMainViewController(), animated: true, completion: nil)

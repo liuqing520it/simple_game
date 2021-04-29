@@ -111,6 +111,7 @@ class HitAirplanViewController: UIViewController {
     ///暂停按钮
     private lazy var backButton : UIButton = {
         let btn = UIButton(type: .custom)
+        btn.frame = CGRect.init(x: 20, y: 64, width: 0, height: 0)
         btn.setImage(UIImage(named:"pause"), for: .normal)
         btn.setTitle("000000", for: .normal)
         btn.setTitleColor(UIColor.white, for: .normal)
@@ -152,7 +153,7 @@ extension HitAirplanViewController {
         timer = Timer.init(fire: Date(), interval: 0.02, repeats: true, block: { (_) in
             self.startTimer()
         })
-        RunLoop.current.add(self.timer!, forMode: .defaultRunLoopMode)
+        RunLoop.current.add(self.timer!, forMode: RunLoop.Mode.default)
     }
     
     static var i : Double = 0
@@ -229,7 +230,7 @@ extension HitAirplanViewController {
         
         ///创建炮弹
         //%的值越小 炮弹越多
-        if HitAirplanViewController.i.truncatingRemainder(dividingBy: 80) == 0 {
+        if HitAirplanViewController.i.truncatingRemainder(dividingBy: 30) == 0 {
             for shells in myAirplan.createShell(){
                 view.insertSubview(shells, belowSubview: self.backButton)
                 shellsArray.append(shells)
@@ -379,7 +380,7 @@ extension HitAirplanViewController {
         for animationView in explodeAnimationViews {
             //如果动画执行完成
             if animationView.isAnimating == false{
-                guard let index = explodeAnimationViews.index(of: animationView) else {
+                guard let index = explodeAnimationViews.firstIndex(of: animationView) else {
                     break
                 }
                 //从数组中删除
@@ -506,7 +507,7 @@ extension HitAirplanViewController {
     //MARK: - 移除操作
     ///移除敌机
     private func removeEnemyAirplan(_ enemyAirPlan : EnemyAirplan){
-        guard let index = enemyAirplanes.index(of: enemyAirPlan) else {
+        guard let index = enemyAirplanes.firstIndex(of: enemyAirPlan) else {
             return
         }
         ///从敌机数组中移除
@@ -517,7 +518,7 @@ extension HitAirplanViewController {
     
     ///移除武器包
     private func removeWeaponPack(_ weapon : WeaponPack){
-        guard let index = weaponPacksArray.index(of: weapon) else {
+        guard let index = weaponPacksArray.firstIndex(of: weapon) else {
             return
         }
         ///从武器包组中移除
@@ -527,7 +528,7 @@ extension HitAirplanViewController {
     }
     
     private func removeEnemyShell(_ enemyShell : EnemyShell){
-        guard let index = enemyShellsArray.index(of: enemyShell) else {
+        guard let index = enemyShellsArray.firstIndex(of: enemyShell) else {
             return
         }
         ///从武器包组中移除
@@ -538,7 +539,7 @@ extension HitAirplanViewController {
     
     ///移除子弹
     private func removeShells(_ shells : Shell){
-        guard let index = shellsArray.index(of: shells) else {
+        guard let index = shellsArray.firstIndex(of: shells) else {
             return
         }
         ///从炮弹数组中移除

@@ -67,7 +67,7 @@ extension FlappyMainViewController  {
         timer = Timer.init(timeInterval: 0.02, repeats: true, block: { (timer) in
             self.startGame()
         });
-        RunLoop.current.add(timer!, forMode: RunLoopMode.defaultRunLoopMode)
+        RunLoop.current.add(timer!, forMode: RunLoop.Mode.default)
     }
     
     static var i : Int = 0
@@ -114,10 +114,10 @@ extension FlappyMainViewController  {
         var index : Int?
         
         if barrier.isMember(of: TopBarrier.self){
-            index = topArray.index(of: barrier as! TopBarrier)
+            index = topArray.firstIndex(of: barrier as! TopBarrier)
             topArray.remove(at: index!)
         }else if barrier.isMember(of: BottomBarrier.self){
-            index = bottomArray.index(of: barrier as! BottomBarrier)
+            index = bottomArray.firstIndex(of: barrier as! BottomBarrier)
             bottomArray.remove(at: index!)
         }
         ///从父控件中移除

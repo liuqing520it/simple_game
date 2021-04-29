@@ -49,7 +49,7 @@ class MenuView: UIView {
         self.bounds = CGRect(x: 0, y: 0, width: 200, height: 200)
         self.center = CGPoint(x: SCREEN_WIDTH * 0.5, y: -SCREEN_HEIGHT*0.5)
         window.addSubview(self)
-        UIView.animate(withDuration: 0.25, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.1, options: UIViewAnimationOptions.allowAnimatedContent, animations: {
+        UIView.animate(withDuration: 0.25, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.1, options: UIView.AnimationOptions.allowAnimatedContent, animations: {
              self.center = CGPoint(x: SCREEN_WIDTH * 0.5, y: SCREEN_HEIGHT * 0.5)
         }, completion: nil);
     }
@@ -57,7 +57,7 @@ class MenuView: UIView {
     ///菜单消失
     func menuViewDissmiss(){
         maskBackView.removeFromSuperview()
-        UIView.animate(withDuration: 0.25, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 10, options: UIViewAnimationOptions.allowAnimatedContent, animations: {
+        UIView.animate(withDuration: 0.25, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 10, options: UIView.AnimationOptions.allowAnimatedContent, animations: {
             self.center = CGPoint(x: SCREEN_WIDTH * 0.5, y: SCREEN_WIDTH + SCREEN_HEIGHT * 0.5)
         }) { (_) in
             self.subviews.map({ $0.removeFromSuperview()})

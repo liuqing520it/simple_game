@@ -82,7 +82,6 @@
 		491CBABD1FAF539700E34690 /* FlappyBird */ = {
 			isa = PBXGroup;
 			children = (
-				491CBAC01FAF53C400E34690 /* Model */,
 				491CBABF1FAF53BB00E34690 /* ViewController */,
 				491CBABE1FAF53AF00E34690 /* View */,
 			);
@@ -105,13 +104,6 @@
 				491CBAC11FAF53FD00E34690 /* FlappyBirdViewController.swift */,
 			);
 			path = ViewController;
-			sourceTree = "<group>";
-		};
-		491CBAC01FAF53C400E34690 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		494F1AF41F9CE654002B6D6C /* HitAriplan */ = {
@@ -282,6 +274,7 @@
 				TargetAttributes = {
 					495116101F8FB4BF00429417 = {
 						CreatedOnToolsVersion = 9.0;
+						LastSwiftMigration = 1250;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -489,7 +482,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = liuqing.SimpleGames;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -505,7 +498,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = liuqing.SimpleGames;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
